@@ -3,4 +3,12 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+
+    <string name="App_Name">QuizGame</string>
+    <string name="Singleplayer">Singleplayer</string>
+    <string name="Multiplayer">Multiplayer</string>
+    <string name="Highscore">Highscore</string>
+
+
 </resources>
