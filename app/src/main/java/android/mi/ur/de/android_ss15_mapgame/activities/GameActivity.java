@@ -16,6 +16,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class GameActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    /* Steuert Nutzereingabe
+     * Benachrichtigt GameController, wenn der Nutzer eine Antwort bestätigt
+     * Aktualisiert Views, wenn der GameController eine neue Frage aus der DatenBank holt
+     * Wechselt am Ende des Spiels zu GameResult und übergibt dabei den Score
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +38,7 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap map) {
-
+        map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
 }
 
