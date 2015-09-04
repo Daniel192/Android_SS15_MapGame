@@ -1,37 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gameMap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.google.android.gms.maps.SupportMapFragment"/>
 
     <TextView
         android:id="@+id/exercise"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Aufgabenstellung"
-        />
+        android:layout_alignParentTop="true"
+        android:textSize="20dp"
+        android:background="@color/White"/>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_below="@id/exercise"
+    android:id="@+id/part"
+    android:weightSum="1.0">
+
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Score: "
+        android:textSize="20dp"
+        android:background="@color/White"
+        android:layout_weight="0.5"/>
+
 
     <ProgressBar
         android:id="@+id/time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+        android:layout_toRightOf="@id/score"
+        android:layout_weight="0.5"/>
+
+</LinearLayout>
 
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/gameMap"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        class="com.google.android.gms.maps.SupportMapFragment"/>
 
     <Button
         android:id="@+id/confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Bestätigen"
-        />
+        android:layout_alignParentBottom="true"/>
 
 
 
 
-
-</LinearLayout>
+</RelativeLayout>
