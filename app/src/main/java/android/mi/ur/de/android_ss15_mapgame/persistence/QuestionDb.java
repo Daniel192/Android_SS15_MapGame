@@ -1,9 +1,9 @@
 package android.mi.ur.de.android_ss15_mapgame.persistence;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.SQLException;
 import android.mi.ur.de.android_ss15_mapgame.utility.QuestionItem;
@@ -19,13 +19,13 @@ public class QuestionDb {
 
     private static final String KEY_ID = "_id";
     private static final String KEY_QUESTION = "question";
-    private static final String KEY_LOCATION_1 = "location1";
-    private static final String KEY_LOCATION_2 = "location2";
+    private static final String KEY_LATITUDE = "latitude";
+    private static final String KEY_LONGITUDE = "longitude";
 
     private static final int COLUMN_ID_INDEX = 0;
     private static final int COLUMN_QUESTION_INDEX = 1;
-    private static final int COLUMN_LOCATION_1_INDEX = 2;
-    private static final int COLUMN_LOCATION_2_INDEX = 3;
+    private static final int COLUMN_LATITUDE_INDEX = 2;
+    private static final int COLUMN_LONGITUDE_INDEX = 3;
 
 
     private QuestionDbOpenHelper dbHelper;
@@ -48,37 +48,35 @@ public class QuestionDb {
         db.close();
     }
 
-    public long addQuestion(String question, float location1, float location2) {
+    public long addQuestion(String question, float latitude, float longitude) {
         ContentValues newQuestionValues = new ContentValues();
         newQuestionValues.put(KEY_QUESTION, question);
-        newQuestionValues.put(KEY_LOCATION_1, location1);
-        newQuestionValues.put(KEY_LOCATION_1, location2);
+        newQuestionValues.put(KEY_LATITUDE, latitude);
+        newQuestionValues.put(KEY_LONGITUDE, longitude);
         return db.insert(DATABASE_TABLE, null, newQuestionValues);
     }
 
-    /*this part will be included as soon as QuestionItems are implemented
-
      public QuestionItem getQuestionItem(int questionID) {
         QuestionItem item;
-        Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_ID, KEY_QUESTION, KEY_LOCATION_1,KEY_LOCATION_2}, null, null, null, null, null);
+        Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_ID, KEY_QUESTION, KEY_LATITUDE,KEY_LONGITUDE}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 if (cursor.getInt(COLUMN_ID_INDEX) == questionID) {
                     String question = cursor.getString(COLUMN_QUESTION_INDEX);
-                    float location1 = cursor.getFloat(COLUMN_LOCATION_1_INDEX;
-                    float location2 = cursor.getFloat(COLUMN_LOCATION_2_INDEX;
-                    item = new QuestionItem(question, location1, location2);
+                    float latitude = cursor.getFloat(COLUMN_LATITUDE_INDEX);
+                    float longitude = cursor.getFloat(COLUMN_LONGITUDE_INDEX);
+                    item = new QuestionItem(question, latitude, longitude);
                     return item;
                 }
 
             } while (cursor.moveToNext());
         }
         return null;
-    }*/
+    }
 
 
     private class QuestionDbOpenHelper extends SQLiteOpenHelper {
-        private final String DATABASE_CREATE = "create table " + DATABASE_TABLE + " (" + KEY_ID + " integer primary key autoincrement, " + KEY_QUESTION + " varchar(255), " + KEY_LOCATION_1 + " float, " + KEY_LOCATION_2 + " float);";
+        private final String DATABASE_CREATE = "create table " + DATABASE_TABLE + " (" + KEY_ID + " integer primary key autoincrement, " + KEY_QUESTION + " varchar(255), " + KEY_LATITUDE + " float, " + KEY_LONGITUDE + " float);";
 
         public QuestionDbOpenHelper(Context c, String dbname, SQLiteDatabase.CursorFactory factory, int version) {
             super(c, dbname, factory, version);
