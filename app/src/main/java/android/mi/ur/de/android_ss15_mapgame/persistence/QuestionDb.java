@@ -48,14 +48,13 @@ public class QuestionDb {
         db.close();
     }
 
-    public long addQuestion(String question, float latitude, float longitude) {
-        ContentValues newQuestionValues = new ContentValues();
-        newQuestionValues.put(KEY_QUESTION, question);
-        newQuestionValues.put(KEY_LATITUDE, latitude);
-        newQuestionValues.put(KEY_LONGITUDE, longitude);
-        return db.insert(DATABASE_TABLE, null, newQuestionValues);
+    private String addQuestion(String question, float latitude, float longitude) {
+        String insertClause = "insert into " + DATABASE_TABLE + " (" + KEY_QUESTION + ", " + KEY_LATITUDE + ", " + KEY_LONGITUDE + ") values ('" + question + "', " + latitude + ", " + longitude + ")";
+        return insertClause;
     }
 
+
+    // ID starts counting at 1, calling this with 0 will return null
      public QuestionItem getQuestionItem(int questionID) {
         QuestionItem item;
         Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_ID, KEY_QUESTION, KEY_LATITUDE,KEY_LONGITUDE}, null, null, null, null, null);
