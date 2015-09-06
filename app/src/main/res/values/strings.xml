@@ -11,4 +11,10 @@
     <string name="Highscore">Highscore</string>
 
 
+    <string name="YourHighscore">Your Highscore</string>
+    <string name="Name">Enter Your Name</string>
+    <string name="PlayAgain">Play Again</string>
+    <string name="Menu">Menu</string>
+
+
 </resources>

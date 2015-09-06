@@ -3,4 +3,49 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/yourHighscore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/YourHighscore"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"/>
+
+
+    <TextView
+        android:id="@+id/highscoreValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="50dp"/>
+
+
+    <EditText
+        android:id="@+id/playerName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/Name"
+        android:gravity="center"
+        android:layout_marginBottom="100dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"/>
+
+
+    <Button
+        android:id="@+id/playagain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/PlayAgain"/>
+
+    <Button
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Menu"/>
+
+
 </LinearLayout>
