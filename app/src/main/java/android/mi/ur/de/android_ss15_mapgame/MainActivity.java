@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -15,9 +17,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent myIntent = new Intent(MainActivity.this, GameActivity.class);
-        startActivity(myIntent);
+
+        Button singleplayerButton = (Button) findViewById(R.id.buttonSingleplayer);
+        singleplayerButton.setOnClickListener(buttonFunction);
+
     }
+
+    View.OnClickListener buttonFunction = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            Intent nextActivity = new Intent(MainActivity.this, GameActivity.class);
+            startActivity(nextActivity);
+
+        }
+    };
 
 
     @Override
