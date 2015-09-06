@@ -48,12 +48,6 @@ public class QuestionDb {
         db.close();
     }
 
-    private String addQuestion(String question, float latitude, float longitude) {
-        String insertClause = "insert into " + DATABASE_TABLE + " (" + KEY_QUESTION + ", " + KEY_LATITUDE + ", " + KEY_LONGITUDE + ") values ('" + question + "', " + latitude + ", " + longitude + ")";
-        return insertClause;
-    }
-
-
     // ID starts counting at 1, calling this with 0 will return null
      public QuestionItem getQuestionItem(int questionID) {
         QuestionItem item;
@@ -75,7 +69,7 @@ public class QuestionDb {
 
 
     private class QuestionDbOpenHelper extends SQLiteOpenHelper {
-        private final String DATABASE_CREATE = "create table " + DATABASE_TABLE + " (" + KEY_ID + " integer primary key autoincrement, " + KEY_QUESTION + " varchar(255), " + KEY_LATITUDE + " float, " + KEY_LONGITUDE + " float);";
+        private final String DATABASE_CREATE = "create table " + DATABASE_TABLE + " (" + KEY_ID + " integer primary key autoincrement not null, " + KEY_QUESTION + " varchar(255), " + KEY_LATITUDE + " float, " + KEY_LONGITUDE + " float);";
 
         public QuestionDbOpenHelper(Context c, String dbname, SQLiteDatabase.CursorFactory factory, int version) {
             super(c, dbname, factory, version);
@@ -84,11 +78,22 @@ public class QuestionDb {
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(DATABASE_CREATE);
+            db.execSQL(addQuestion("Wo liegt Altötting?", 48.2263996f, 12.6701338f));
+            db.execSQL(addQuestion("Wo befindet sich Coburg?", 50.2603389f, 10.9755166f));
+            db.execSQL(addQuestion("Wo ist Erfurt?", 50.9853404f, 11.0153355f));
+            db.execSQL(addQuestion("Wo befindet sich Frankfurt am Main", 50.121212f, 8.6365638f));
+            db.execSQL(addQuestion("Wo ist Regensburg?", 48.9940947f, 12.0750918f));
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         }
+
+        private String addQuestion(String question, float latitude, float longitude) {
+            String insertClause = "insert into " + DATABASE_TABLE + " (" + KEY_QUESTION + ", " + KEY_LATITUDE + ", " + KEY_LONGITUDE + ") values ('" + question + "', " + latitude + ", " + longitude + ")";
+            return insertClause;
+        }
+
     }
 }
