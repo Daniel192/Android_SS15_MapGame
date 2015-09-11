@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.SQLException;
 import android.mi.ur.de.android_ss15_mapgame.utility.QuestionItem;
 
+import java.util.ArrayList;
+
 /**
  * Created by Daniel on 24.08.2015.
  */
@@ -65,6 +67,22 @@ public class QuestionDb {
             } while (cursor.moveToNext());
         }
         return null;
+    }
+
+    public ArrayList<QuestionItem> getAllQuestionItems() {
+        ArrayList<QuestionItem> items = new ArrayList<QuestionItem>();
+        Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_ID, KEY_QUESTION, KEY_LATITUDE, KEY_LONGITUDE}, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String question = cursor.getString(COLUMN_QUESTION_INDEX);
+                float latitude = cursor.getFloat(COLUMN_LATITUDE_INDEX);
+                float longitude = cursor.getFloat(COLUMN_LONGITUDE_INDEX);
+
+                items.add(new QuestionItem(question, latitude, longitude));
+
+            } while (cursor.moveToNext());
+        }
+        return items;
     }
 
 
