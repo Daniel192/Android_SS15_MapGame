@@ -113,7 +113,7 @@ public class QuestionDb {
 
 
     private class QuestionDbOpenHelper extends SQLiteOpenHelper {
-        private final String DATABASE_CREATE = "create table " + DATABASE_TABLE + " (" + KEY_ID + " integer primary key autoincrement not null, " + KEY_QUESTION +  "varchar(255), " + KEY_LATITUDE + " float, " + KEY_LONGITUDE + " float, " + KEY_REGION + " integer);";
+        private final String DATABASE_CREATE = "create table " + DATABASE_TABLE + " (" + KEY_ID + " integer primary key autoincrement, " + KEY_QUESTION +  " varchar(255), " + KEY_LATITUDE + " float, " + KEY_LONGITUDE + " float, " + KEY_REGION + " integer);";
 
         public QuestionDbOpenHelper(Context c, String dbname, SQLiteDatabase.CursorFactory factory, int version) {
             super(c, dbname, factory, version);
@@ -125,7 +125,7 @@ public class QuestionDb {
             db.execSQL(addQuestion("Wo liegt Altötting?", 48.2263996f, 12.6701338f, GERMANY));
             db.execSQL(addQuestion("Wo befindet sich Coburg?", 50.2603389f, 10.9755166f, GERMANY));
             db.execSQL(addQuestion("Wo ist Erfurt?", 50.9853404f, 11.0153355f, GERMANY));
-            db.execSQL(addQuestion("Wo befindet sich Frankfurt am Main", 50.121212f, 8.6365638f, GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Frankfurt am Main?", 50.121212f, 8.6365638f, GERMANY));
             db.execSQL(addQuestion("Wo ist Regensburg?", 48.9940947f, 12.0750918f, GERMANY));
         }
 
@@ -135,7 +135,7 @@ public class QuestionDb {
         }
 
         private String addQuestion(String question, float latitude, float longitude, int region) {
-            String insertClause = "insert into " + DATABASE_TABLE + " (" + KEY_QUESTION + ", " + KEY_LATITUDE + ", " + KEY_LONGITUDE + ", " + KEY_REGION + ") values ('" + question + "', " + latitude + ", " + longitude + ", " + region + ")";
+            String insertClause = "insert into " + DATABASE_TABLE + " (" + KEY_QUESTION + ", " + KEY_LATITUDE + ", " + KEY_LONGITUDE + ", " + KEY_REGION + ") values ('" + question + "', " + latitude + ", " + longitude + ", " + region + ");";
             return insertClause;
         }
 
