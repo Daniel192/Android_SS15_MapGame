@@ -7,6 +7,7 @@ import android.mi.ur.de.android_ss15_mapgame.persistence.QuestionDb;
 import android.mi.ur.de.android_ss15_mapgame.utility.QuestionItem;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,15 +19,16 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.SphericalUtil;
 
 import java.util.ArrayList;
 
 
-
-public class GameActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener{
+public class GameActivity extends FragmentActivity implements OnMapReadyCallback{
 
     /* Steuert Nutzereingabe
      * Benachrichtigt GameController, wenn der Nutzer eine Antwort bestätigt
@@ -34,11 +36,15 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
      * Wechselt am Ende des Spiels zu GameResult und übergibt dabei den Score
      */
 
-    private GoogleMap map;
+    private static final LatLng GERMANY = new LatLng(51.17,10.45);
+
+    private GoogleMap quizMap;
+    private UiSettings quizMapUiSettings;
 
     private QuestionDb questionDb;
-    private ArrayList <QuestionItem> questionArray = new ArrayList<>();
+    private ArrayList<QuestionItem> questionArray = new ArrayList<>();
     private QuestionItem currentQuestion;
+    private int currentQuestionId = 0;
 
     private TextView questionView;
     private TextView scoreView;
@@ -49,12 +55,14 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
     private ProgressBar progressBar;
     private int progressStatus = 0;
 
+    private Marker guessMarker;
+    private Marker targetMarker;
     private LatLng target;
     private LatLng guess;
 
     private double distance;
     private double score = 0;
-    private int gameTimeMillis = 20000;
+    private int gameTimeMillis = 60000;
     private ScoreCalculator scoreCalculator = new ScoreCalculator();
 
 
@@ -65,9 +73,14 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
         setupUI();
         initDb();
         loadQuestions();
-        updateQuestion();
         setupTimer();
         setupMap();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        timer.cancel();
     }
 
     private void initDb(){
@@ -76,24 +89,19 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void loadQuestions(){
-        for(int i = 1; i < 6; i++){
-            questionArray.add(questionDb.getQuestionItem(i));
-        }
+        questionArray = questionDb.getAllQuestionItems();
     }
 
     private void updateQuestion(){
-        if(!questionArray.isEmpty()){
-            currentQuestion = questionArray.get(questionArray.size()-1);
-            questionArray.remove(currentQuestion);
-            questionView.setText(currentQuestion.getQuestion());
-            target = currentQuestion.getTargetLocation();
-        }
-        //stopGame();
+        currentQuestion = questionArray.get(currentQuestionId);
+        questionView.setText(currentQuestion.getQuestion());
+        target = currentQuestion.getTargetLocation();
     }
 
     private void setupUI(){
         setContentView(R.layout.game_activity);
         questionView = (TextView) findViewById(R.id.exercise);
+        scoreView = (TextView) findViewById(R.id.score);
         progressBar = (ProgressBar) findViewById(R.id.time);
         confirmButton = (Button) findViewById(R.id.confirm);
 
@@ -101,8 +109,8 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
 
-                if(guess != null && target != null){
-                    Log.d("TAG","ConfirmGuess");
+                if (guess != null && target != null) {
+                    Log.d("TAG", "ConfirmGuess");
                     confirmGuess();
                 }
             }
@@ -120,20 +128,19 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
         timer = new CountDownTimer(gameTimeMillis, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                questionView.setText("seconds remaining: " + millisUntilFinished / 1000);
+                //questionView.setText("seconds remaining: " + millisUntilFinished / 1000);
                 progressStatus += 1;
                 progressBar.setProgress(progressStatus);
             }
 
             public void onFinish() {
                 stopGame();
-                questionView.setText("done!");
             }
         };
     }
 
     private void startTimer(){
-        progressBar.setMax(20);
+        progressBar.setMax(60);
         progressBar.setProgress(0);
         timer.start();
     }
@@ -142,36 +149,77 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
         distance = SphericalUtil.computeDistanceBetween(guess, target);
         score += scoreCalculator.calculateScore(distance);
         scoreView.setText(String.valueOf(score));
-        updateQuestion();
+        showTarget();
+    }
 
+    private void showTarget(){
+        targetMarker = quizMap.addMarker(new MarkerOptions()
+                .position(target)
+                .title("Ziel"));
+        targetMarker.showInfoWindow();
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                targetMarker.remove();
+                currentQuestionId++;
+                if(currentQuestionId == questionArray.size()-1){
+                    stopGame();
+                }
+                updateQuestion();
+            }
+        },3000);
     }
 
     private void stopGame(){
         Intent nextActivity = new Intent(GameActivity.this, GameResult.class);
-        nextActivity.putExtra("Score", score);
+        nextActivity.putExtra("score", score);
         startActivity(nextActivity);
         finish();
     }
 
     @Override
     public void onMapReady(GoogleMap map) {
-        LatLng germany = new LatLng(51.17,10.45);
+        quizMap = map;
+        quizMapUiSettings = quizMap.getUiSettings();
+        quizMapUiSettings.setCompassEnabled(false);
+        quizMapUiSettings.setRotateGesturesEnabled(false);
+        quizMapUiSettings.setMapToolbarEnabled(false);
+        quizMapUiSettings.setZoomControlsEnabled(false);
 
         map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        map.moveCamera(CameraUpdateFactory.newLatLng(germany));
+        map.moveCamera(CameraUpdateFactory.newLatLng(GERMANY));
 
-        startTimer();
+        setListenersOnMap();
     }
 
+    private void setListenersOnMap(){
+        quizMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            @Override
+            public void onMapLoaded() {
+                Log.d("TAG", "onMapLoaded");
+                updateQuestion();
+                startTimer();
+            }
+        });
 
-
-    @Override
-    public void onMapClick(LatLng latLng) {
-        guess = latLng;
-        map.addMarker(new MarkerOptions()
-                .position(latLng)
-                .title("Vermutung"));
-
+        quizMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                guess = latLng;
+                if (guessMarker == null) {
+                    guessMarker = quizMap.addMarker(new MarkerOptions()
+                            .position(guess)
+                            .draggable(true)
+                            .title("Vermutung"));
+                    guessMarker.showInfoWindow();
+                } else {
+                    guessMarker.setPosition(guess);
+                }
+            }
+        });
     }
+
 }
 

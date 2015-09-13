@@ -26,5 +26,7 @@ public class GameResult extends Activity {
         setContentView(R.layout.game_result);
 
         highscoreValue = (TextView) findViewById(R.id.highscoreValue);
+        highscoreValue.setText(score);
+
     }
 }
