@@ -1,6 +1,7 @@
 package android.mi.ur.de.android_ss15_mapgame.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.mi.ur.de.android_ss15_mapgame.R;
 import android.mi.ur.de.android_ss15_mapgame.game.ScoreCalculator;
 import android.mi.ur.de.android_ss15_mapgame.persistence.QuestionDb;
@@ -20,6 +21,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -36,7 +40,8 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
      * Wechselt am Ende des Spiels zu GameResult und übergibt dabei den Score
      */
 
-    private static final LatLng GERMANY = new LatLng(51.17,10.45);
+    private static final LatLng LAT_LNG_GERMANY = new LatLng(51.17,10.45);
+    private static final float ZOOM_GERMANY = 4.5f;
 
     private GoogleMap quizMap;
     private UiSettings quizMapUiSettings;
@@ -60,8 +65,15 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
     private LatLng target;
     private LatLng guess;
 
+    private Circle veryFarAwayCircle;
+    private Circle farAwayCircle;
+    private Circle awayCircle;
+    private Circle closeCircle;
+    private Circle veryCloseCircle;
+    private Circle onTargetCircle;
+
     private double distance;
-    private double score = 0;
+    private int score = 0;
     private int gameTimeMillis = 60000;
     private ScoreCalculator scoreCalculator = new ScoreCalculator();
 
@@ -146,8 +158,9 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void confirmGuess(){
+        confirmButton.setEnabled(false);
         distance = SphericalUtil.computeDistanceBetween(guess, target);
-        score += scoreCalculator.calculateScore(distance);
+        score += (int) scoreCalculator.calculateScore(distance);
         scoreView.setText(String.valueOf(score));
         showTarget();
     }
@@ -155,26 +168,70 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
     private void showTarget(){
         targetMarker = quizMap.addMarker(new MarkerOptions()
                 .position(target)
-                .title("Ziel"));
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                .title(currentQuestion.getAnswer()));
         targetMarker.showInfoWindow();
+
+        veryFarAwayCircle = quizMap.addCircle(new CircleOptions()
+                .center(targetMarker.getPosition())
+                .radius(500000)
+                .strokeWidth(3)
+                .fillColor(Color.RED));
+        farAwayCircle = quizMap.addCircle(new CircleOptions()
+                .center(targetMarker.getPosition())
+                .radius(350000)
+                .strokeWidth(3)
+                .fillColor(Color.LTGRAY));
+        awayCircle = quizMap.addCircle(new CircleOptions()
+                .center(targetMarker.getPosition())
+                .radius(200000)
+                .strokeWidth(3)
+                .fillColor(Color.GRAY));
+        closeCircle = quizMap.addCircle(new CircleOptions()
+                .center(targetMarker.getPosition())
+                .radius(100000)
+                .strokeWidth(3)
+                .fillColor(Color.YELLOW));
+        veryCloseCircle = quizMap.addCircle(new CircleOptions()
+                .center(targetMarker.getPosition())
+                .radius(50000)
+                .strokeWidth(3)
+                .fillColor(Color.BLUE));
+        onTargetCircle = quizMap.addCircle(new CircleOptions()
+                .center(targetMarker.getPosition())
+                .radius(20000)
+                .strokeWidth(3)
+                .fillColor(Color.GREEN));
+
+
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 targetMarker.remove();
+                onTargetCircle.remove();
+                veryCloseCircle.remove();
+                closeCircle.remove();
+                awayCircle.remove();
+                farAwayCircle.remove();
+                veryFarAwayCircle.remove();
                 currentQuestionId++;
+
                 if(currentQuestionId == questionArray.size()-1){
                     stopGame();
                 }
+                quizMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LAT_LNG_GERMANY, ZOOM_GERMANY));
                 updateQuestion();
+                confirmButton.setEnabled(true);
             }
         },3000);
     }
 
     private void stopGame(){
         Intent nextActivity = new Intent(GameActivity.this, GameResult.class);
-        nextActivity.putExtra("score", score);
+
+        nextActivity.putExtra("score", String.valueOf(score));
         startActivity(nextActivity);
         finish();
     }
@@ -188,8 +245,8 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
         quizMapUiSettings.setMapToolbarEnabled(false);
         quizMapUiSettings.setZoomControlsEnabled(false);
 
-        map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        map.moveCamera(CameraUpdateFactory.newLatLng(GERMANY));
+        quizMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        quizMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LAT_LNG_GERMANY, ZOOM_GERMANY));
 
         setListenersOnMap();
     }
@@ -211,8 +268,8 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
                 if (guessMarker == null) {
                     guessMarker = quizMap.addMarker(new MarkerOptions()
                             .position(guess)
-                            .draggable(true)
-                            .title("Vermutung"));
+                            .flat(true)
+                            .draggable(true));
                     guessMarker.showInfoWindow();
                 } else {
                     guessMarker.setPosition(guess);
