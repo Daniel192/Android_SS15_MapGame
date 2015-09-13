@@ -5,4 +5,9 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <color name="white">#fff5f8ff</color>
+    <color name="black">#ff000000</color>
+    <color name="semitransparent">#23f5f8ff</color>
+    <color name="transparent">#07f5f8ff</color>
+
 </resources>

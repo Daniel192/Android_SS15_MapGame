@@ -1,13 +1,16 @@
 <resources>
 
-    <string name="app_name">Android_SS15_MapGame</string>
+    <string name="app_name">Quiz Game</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <string name="Information">Info</string>
+    <string name="BackMenu">Menü</string>
+
 
     <string name="App_Name">QuizGame</string>
-    <string name="Singleplayer">Singleplayer</string>
+    <string name="Singleplayer">Spiel starten</string>
     <string name="Multiplayer">Multiplayer</string>
     <string name="Highscore">Highscore</string>
 
@@ -18,10 +21,11 @@
     <string name="Questions">Zusatzfragen</string>
 
 
-    <string name="YourHighscore">Your Highscore</string>
-    <string name="Name">Enter Your Name</string>
-    <string name="PlayAgain">Play Again</string>
-    <string name="Menu">Back to Menu</string>
+    <string name="YourScore">Dein Punktestand</string>
+    <string name="YourHighscore">Dein Highscore</string>
+    <string name="Name">Name</string>
+    <string name="PlayAgain">Nochmal!</string>
+    <string name="Menu">Menü</string>
 
 
 </resources>
