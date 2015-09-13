@@ -5,8 +5,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
     android:orientation="vertical"
-    android:gravity="center">
-
+    android:gravity="center"
+    android:background="@drawable/background">
 
 
     <TextView
@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:text="@string/App_Name"
         android:gravity="center"
-        android:textSize="60dp"/>
+        android:textSize="60dp"
+        android:textColor="@color/black"/>
 
     <Button
         android:id="@+id/buttonSingleplayer"
@@ -23,11 +24,12 @@
         android:layout_height="wrap_content"
         android:text="@string/Singleplayer"/>
 
-    <Button
+  <Button
         android:id="@+id/buttonMultiplayer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Multiplayer"/>
+        android:text="@string/Multiplayer"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/buttonHighscore"
