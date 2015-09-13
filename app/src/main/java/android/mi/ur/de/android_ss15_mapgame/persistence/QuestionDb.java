@@ -131,6 +131,31 @@ public class QuestionDb {
             db.execSQL(addQuestion("Wo ist Erfurt?", 50.9853404f, 11.0153355f, "Erfurt", GERMANY));
             db.execSQL(addQuestion("Wo befindet sich Frankfurt am Main?", 50.121212f, 8.6365638f, "Frankfurt am Main", GERMANY));
             db.execSQL(addQuestion("Wo ist Regensburg?", 48.9940947f, 12.0750918f, "Regensburg", GERMANY));
+            db.execSQL(addQuestion("Wo liegt Heilbronn?", 49.1513079f, 9.1732881f, "Heilbronn", GERMANY));
+            db.execSQL(addQuestion("Wo ist Karlsruhe?", 49.0158491f, 8.4095339f, "Karlsruhe", GERMANY));
+            db.execSQL(addQuestion("Wo ist Köln?", 50.9572449f, 6.9673223f, "Köln", GERMANY));
+            db.execSQL(addQuestion("Wo liegt Lübeck?", 53.8810006f, 10.7613749f, "Lübeck", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Münster?", 51.9500854f, 7.6240971f, "Münster", GERMANY));
+            db.execSQL(addQuestion("Wo liegt Nürnberg?", 49.4360936f, 11.1011232f, "Nürnberg", GERMANY));
+            db.execSQL(addQuestion("Wo ist Osnarbrück?", 52.2779866f, 8.0554295f, "Osnarbrück", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Potsdam?", 52.4283615f, 13.0274123f, "Potsdam", GERMANY));
+            db.execSQL(addQuestion("Wo ist Stuttgart?", 48.7792090f, 9.1772152f, "Stuttgart", GERMANY));
+            db.execSQL(addQuestion("Wo liegt Ulm?", 48.3875890f, 9.9424448f, "Ulm", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Tübingen?", 48.5221441f, 9.0477834f, "Tübingen", GERMANY));
+            db.execSQL(addQuestion("Wo ist Würzburg?", 49.7780731f, 9.9430286f, "Würzburg", GERMANY));
+            db.execSQL(addQuestion("Wo ist Wuppertal?", 51.2418916f, 7.1637667f, "Wuppertal", GERMANY));
+            db.execSQL(addQuestion("Wo ist der Checkpoint Charlie?", 52.5075419f, 13.4251364f, "Berlin: Checkpoint Charlie", GERMANY));
+            db.execSQL(addQuestion("Wo ist Goethes Wohnhaus?", 50.9769891f, 11.3184553f, "Weimar: Goethes Wohnhaus", GERMANY));
+            db.execSQL(addQuestion("Wo ist der Hugenottenbrunnen?", 49.5891771f, 10.9844836f, "Erlangen: Hugenottenbrunnen", GERMANY));
+            db.execSQL(addQuestion("Wo ist die Reeperbahn?", 53.5585720f, 9.9278215f, "Hamburg: Reeperbahn", GERMANY));
+            db.execSQL(addQuestion("Wo ist das Schloss Neuschwanstein?", 47.5575740f, 10.7498004f, "Schloss Neuschwanstein", GERMANY));
+            db.execSQL(addQuestion("Wo ist der Europa-Park?", 48.2660194f, 7.7220076f, "Europa-Park", GERMANY));
+            db.execSQL(addQuestion("Wo findet das Oktoberfest statt?", 48.1549107f, 11.5418357f, "München: Oktoberfest", GERMANY));
+            db.execSQL(addQuestion("Wo ist der Olympiapark?", 48.1549107f, 11.5418357f, "München: Olympiapark", GERMANY));
+            db.execSQL(addQuestion("Wo ist die Semperoper?", 51.0768337f, 13.7725857f, "Dresden: Semperoper", GERMANY));
+            db.execSQL(addQuestion("Wo ist der Englische Garten?", 48.1549107f, 11.5418357f, "München: Englischer Garten", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich die Zugspitze?", 47.4207504f, 10.9854391f, "Zugspitze", GERMANY));
+            db.execSQL(addQuestion("Wo ist das Dürerhaus?", 49.4360936f, 11.1011232f, "Nürnberg: Dürerhaus", GERMANY));
         }
 
         @Override
