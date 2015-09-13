@@ -9,9 +9,11 @@ public class QuestionItem {
 
     private String question;
     private LatLng targetLocation;
+    private String answer;
 
-    public QuestionItem(String question, float latitude, float longitude){
+    public QuestionItem(String question, String answer, float latitude, float longitude){
         this.question = question;
+        this.answer = answer;
         targetLocation = new LatLng(latitude, longitude);
     }
 
@@ -21,6 +23,10 @@ public class QuestionItem {
 
     public LatLng getTargetLocation(){
         return targetLocation;
+    }
+
+    public String getAnswer() {
+        return answer;
     }
 
 }
