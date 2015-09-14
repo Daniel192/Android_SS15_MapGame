@@ -142,7 +142,7 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
         timer = new CountDownTimer(gameTimeMillis, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                timeView.setText("Zeit " + millisUntilFinished / 1000);
+                timeView.setText("Zeit: " + millisUntilFinished / 1000);
                 progressStatus += 1;
                 progressBar.setProgress(progressStatus);
             }
