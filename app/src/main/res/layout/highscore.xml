@@ -57,7 +57,7 @@
         android:layout_below="@id/partOne"
         android:id="@+id/PartTwo"
         android:layout_marginTop="10dp"
-        android:background="@color/semitransparent"
+        android:background="@color/transparent"
         android:weightSum="1.0">
 
 
@@ -90,7 +90,7 @@
         android:layout_below="@id/PartTwo"
         android:id="@+id/partThree"
         android:layout_marginTop="10dp"
-        android:background="@color/semitransparent"
+        android:background="@color/transparent"
         android:weightSum="1.0">
 
 
