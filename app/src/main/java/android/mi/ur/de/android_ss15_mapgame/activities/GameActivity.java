@@ -53,6 +53,7 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
 
     private TextView questionView;
     private TextView scoreView;
+    private TextView timeView;
 
     private Button confirmButton;
     private CountDownTimer timer;
@@ -114,6 +115,7 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.game_activity);
         questionView = (TextView) findViewById(R.id.exercise);
         scoreView = (TextView) findViewById(R.id.score);
+        timeView = (TextView) findViewById(R.id.timeNumber);
         progressBar = (ProgressBar) findViewById(R.id.time);
         confirmButton = (Button) findViewById(R.id.confirm);
 
@@ -140,7 +142,7 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
         timer = new CountDownTimer(gameTimeMillis, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                //questionView.setText("seconds remaining: " + millisUntilFinished / 1000);
+                timeView.setText("Zeit " + millisUntilFinished / 1000);
                 progressStatus += 1;
                 progressBar.setProgress(progressStatus);
             }
@@ -161,49 +163,29 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
         confirmButton.setEnabled(false);
         distance = SphericalUtil.computeDistanceBetween(guess, target);
         score += (int) scoreCalculator.calculateScore(distance);
-        scoreView.setText(String.valueOf(score));
+        scoreView.setText(String.valueOf("Score: " + score));
         showTarget();
     }
 
     private void showTarget(){
         targetMarker = quizMap.addMarker(new MarkerOptions()
                 .position(target)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                .title(currentQuestion.getAnswer()));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_flag))
+                .anchor(0.3f, 0.82f)
+                .title(currentQuestion.getAnswer())
+                .snippet("Entfernung " + String.valueOf((int) (distance / 1000)) + " km"));
         targetMarker.showInfoWindow();
 
         veryFarAwayCircle = quizMap.addCircle(new CircleOptions()
                 .center(targetMarker.getPosition())
-                .radius(500000)
+                .radius(150000)
                 .strokeWidth(3)
-                .fillColor(Color.RED));
-        farAwayCircle = quizMap.addCircle(new CircleOptions()
-                .center(targetMarker.getPosition())
-                .radius(350000)
-                .strokeWidth(3)
-                .fillColor(Color.LTGRAY));
-        awayCircle = quizMap.addCircle(new CircleOptions()
-                .center(targetMarker.getPosition())
-                .radius(200000)
-                .strokeWidth(3)
-                .fillColor(Color.GRAY));
-        closeCircle = quizMap.addCircle(new CircleOptions()
-                .center(targetMarker.getPosition())
-                .radius(100000)
-                .strokeWidth(3)
-                .fillColor(Color.YELLOW));
-        veryCloseCircle = quizMap.addCircle(new CircleOptions()
-                .center(targetMarker.getPosition())
-                .radius(50000)
-                .strokeWidth(3)
-                .fillColor(Color.BLUE));
+                .zIndex(0.0f));
         onTargetCircle = quizMap.addCircle(new CircleOptions()
                 .center(targetMarker.getPosition())
-                .radius(20000)
-                .strokeWidth(3)
-                .fillColor(Color.GREEN));
-
-
+                .radius(2000)
+                .fillColor(Color.BLACK)
+                .zIndex(5.0f));
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -211,17 +193,13 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
             public void run() {
                 targetMarker.remove();
                 onTargetCircle.remove();
-                veryCloseCircle.remove();
-                closeCircle.remove();
-                awayCircle.remove();
-                farAwayCircle.remove();
                 veryFarAwayCircle.remove();
                 currentQuestionId++;
 
                 if(currentQuestionId == questionArray.size()-1){
                     stopGame();
                 }
-                quizMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LAT_LNG_GERMANY, ZOOM_GERMANY));
+                quizMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LAT_LNG_GERMANY, ZOOM_GERMANY));
                 updateQuestion();
                 confirmButton.setEnabled(true);
             }
@@ -268,12 +246,30 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
                 if (guessMarker == null) {
                     guessMarker = quizMap.addMarker(new MarkerOptions()
                             .position(guess)
-                            .flat(true)
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_pin))
+                            .anchor(0.18f, 0.8f)
                             .draggable(true));
                     guessMarker.showInfoWindow();
                 } else {
                     guessMarker.setPosition(guess);
                 }
+            }
+        });
+
+        quizMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDragStart(Marker marker) {
+
+            }
+
+            @Override
+             public void onMarkerDrag(Marker marker) {
+
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+                guess = guessMarker.getPosition();
             }
         });
     }

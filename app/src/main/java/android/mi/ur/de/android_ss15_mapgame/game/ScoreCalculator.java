@@ -1,17 +1,14 @@
 package android.mi.ur.de.android_ss15_mapgame.game;
 
-/**
- * Created by Daniel on 24.08.2015.
- */
 public class ScoreCalculator {
 
     private static final int NO_POINTS = 0;
-    private static final int VERY_FAR_AWAY = 500000;
-    private static final int FAR_AWAY = 350000;
-    private static final int AWAY = 200000;
-    private static final int CLOSE = 100000;
+    private static final int VERY_FAR_AWAY = 150000;
+    private static final int FAR_AWAY = 125000;
+    private static final int AWAY = 100000;
+    private static final int CLOSE = 75000;
     private static final int VERY_CLOSE = 50000;
-    private static final int ON_TARGET = 20000;
+    private static final int ON_TARGET = 25000;
 
     private double result;
 
