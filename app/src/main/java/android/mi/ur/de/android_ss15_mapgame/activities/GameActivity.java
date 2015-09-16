@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.SphericalUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class GameActivity extends FragmentActivity implements OnMapReadyCallback{
@@ -41,10 +42,15 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
      */
 
     private static final LatLng LAT_LNG_GERMANY = new LatLng(51.17,10.45);
+    private static final LatLng LAT_LNG_EUROPE = new LatLng(49.5,22);
+    private static final LatLng LAT_LNG_WORLD = new LatLng(28.9380657,3.1182884);
     private static final float ZOOM_GERMANY = 4.5f;
+    private static final float ZOOM_EUROPE = 2.5f;
+    private static final float ZOOM_WORLD = 1.0f;
 
     private GoogleMap quizMap;
     private UiSettings quizMapUiSettings;
+    private int region;
 
     private QuestionDb questionDb;
     private ArrayList<QuestionItem> questionArray = new ArrayList<>();
@@ -67,22 +73,21 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
     private LatLng guess;
 
     private Circle veryFarAwayCircle;
-    private Circle farAwayCircle;
-    private Circle awayCircle;
-    private Circle closeCircle;
-    private Circle veryCloseCircle;
     private Circle onTargetCircle;
 
     private double distance;
     private int score = 0;
-    private int gameTimeMillis = 60000;
+    private int gameTimeMillis = 90000;
     private ScoreCalculator scoreCalculator = new ScoreCalculator();
+    private LatLng currentRegion;
+    private float currentZoom;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getExtras();
         setupUI();
         initDb();
         loadQuestions();
@@ -93,7 +98,28 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onPause() {
         super.onPause();
-        timer.cancel();
+        //timer.cancel();
+        finish();
+    }
+
+    private void getExtras() {
+        Bundle extras = getIntent().getExtras();
+        region = extras.getInt("region");
+
+        switch (region){
+            case 0:
+                currentRegion = LAT_LNG_GERMANY;
+                currentZoom = ZOOM_GERMANY;
+                break;
+            case 1:
+                currentRegion = LAT_LNG_EUROPE;
+                currentZoom = ZOOM_EUROPE;
+                break;
+            case 2:
+                currentRegion = LAT_LNG_WORLD;
+                currentZoom = ZOOM_WORLD;
+                break;
+        }
     }
 
     private void initDb(){
@@ -102,7 +128,8 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void loadQuestions(){
-        questionArray = questionDb.getAllQuestionItems();
+        questionArray = questionDb.getAllQuestionItems(region);
+        Collections.shuffle(questionArray);
     }
 
     private void updateQuestion(){
@@ -154,7 +181,7 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void startTimer(){
-        progressBar.setMax(60);
+        progressBar.setMax(90);
         progressBar.setProgress(0);
         timer.start();
     }
@@ -199,7 +226,7 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
                 if(currentQuestionId == questionArray.size()-1){
                     stopGame();
                 }
-                quizMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LAT_LNG_GERMANY, ZOOM_GERMANY));
+                quizMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentRegion, currentZoom));
                 updateQuestion();
                 confirmButton.setEnabled(true);
             }
@@ -224,7 +251,7 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
         quizMapUiSettings.setZoomControlsEnabled(false);
 
         quizMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        quizMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LAT_LNG_GERMANY, ZOOM_GERMANY));
+        quizMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentRegion, currentZoom));
 
         setListenersOnMap();
     }

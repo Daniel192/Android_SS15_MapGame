@@ -2,7 +2,6 @@ package android.mi.ur.de.android_ss15_mapgame.game;
 
 public class ScoreCalculator {
 
-    private static final int NO_POINTS = 0;
     private static final int VERY_FAR_AWAY = 150000;
     private static final int FAR_AWAY = 125000;
     private static final int AWAY = 100000;
@@ -32,7 +31,7 @@ public class ScoreCalculator {
         } else if (distance <= VERY_FAR_AWAY) {
             result = 20;
 
-        } else if (distance <= NO_POINTS) {
+        } else {
             result = 0;
 
         }
