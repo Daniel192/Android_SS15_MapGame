@@ -144,7 +144,7 @@ public class QuestionDb {
             db.execSQL(addQuestion("Wo befindet sich Tübingen?", 48.5221441f, 9.0477834f, "Tübingen", GERMANY));
             db.execSQL(addQuestion("Wo ist Würzburg?", 49.7780731f, 9.9430286f, "Würzburg", GERMANY));
             db.execSQL(addQuestion("Wo ist Wuppertal?", 51.2418916f, 7.1637667f, "Wuppertal", GERMANY));
-            db.execSQL(addQuestion("Wo ist der Checkpoint Charlie?", 52.5075419f, 13.4251364f, "Berlin: Checkpoint Charlie", GERMANY));
+           /* db.execSQL(addQuestion("Wo ist der Checkpoint Charlie?", 52.5075419f, 13.4251364f, "Berlin: Checkpoint Charlie", GERMANY));
             db.execSQL(addQuestion("Wo ist Goethes Wohnhaus?", 50.9769891f, 11.3184553f, "Weimar: Goethes Wohnhaus", GERMANY));
             db.execSQL(addQuestion("Wo ist der Hugenottenbrunnen?", 49.5891771f, 10.9844836f, "Erlangen: Hugenottenbrunnen", GERMANY));
             db.execSQL(addQuestion("Wo ist die Reeperbahn?", 53.5585720f, 9.9278215f, "Hamburg: Reeperbahn", GERMANY));
@@ -155,7 +155,52 @@ public class QuestionDb {
             db.execSQL(addQuestion("Wo ist die Semperoper?", 51.0768337f, 13.7725857f, "Dresden: Semperoper", GERMANY));
             db.execSQL(addQuestion("Wo ist der Englische Garten?", 48.1549107f, 11.5418357f, "München: Englischer Garten", GERMANY));
             db.execSQL(addQuestion("Wo befindet sich die Zugspitze?", 47.4207504f, 10.9854391f, "Zugspitze", GERMANY));
-            db.execSQL(addQuestion("Wo ist das Dürerhaus?", 49.4360936f, 11.1011232f, "Nürnberg: Dürerhaus", GERMANY));
+            db.execSQL(addQuestion("Wo ist das Dürerhaus?", 49.4360936f, 11.1011232f, "Nürnberg: Dürerhaus", GERMANY)); */
+
+            db.execSQL(addQuestion("Wo liegt Madrid?", 40.4379543f, -3.6795367f, "Madrid", EUROPE));
+            db.execSQL(addQuestion("Wo ist Rom?", 41.9100711f, 12.5359979f, "Rom", EUROPE));
+            db.execSQL(addQuestion("Wo ist Wien?", 48.2206849f, 16.3800599f, "Wien", EUROPE));
+            db.execSQL(addQuestion("Wo liegt Budapest?", 47.4812134f, 19.1303031f, "Budapest", EUROPE));
+            db.execSQL(addQuestion("Wo befindet sich Warschau?", 52.232938f, 21.0611941f, "Warschau", EUROPE));
+            db.execSQL(addQuestion("Wo ist Barcelona?", 41.39479f, 2.1487679f, "Barcelona", EUROPE));
+            db.execSQL(addQuestion("Wo liegt Prag?", 50.0596696f, 14.4656239f, "Prag", EUROPE));
+            db.execSQL(addQuestion("Wo ist Mailand?", 45.4627338f, 9.1777323f, "Mailand", EUROPE));
+            db.execSQL(addQuestion("Wo ist Neapel?", 40.8539855f, 14.2466023f, "Neapel", EUROPE));
+            db.execSQL(addQuestion("Wo liegt Amsterdam?", 52.3747158f, 4.8986142f, "Amsterdam", EUROPE));
+            db.execSQL(addQuestion("Wo ist Athen?", 37.9908372f, 23.7383394f, "Athen", EUROPE));
+            db.execSQL(addQuestion("Wo befindet sich Oslo?", 59.8938549f, 10.7851165f, "Oslo", EUROPE));
+            db.execSQL(addQuestion("Wo ist Rotterdam?", 51.9279723f, 4.4904063f, "Rotterdam", EUROPE));
+            db.execSQL(addQuestion("Wo ist Dublin?", 53.3243201f, -6.245704f, "Dublin", EUROPE));
+            db.execSQL(addQuestion("Wo liegt Manchester?", 53.4722454f, -2.2235922f, "Manchester", EUROPE));
+            db.execSQL(addQuestion("Wo ist Turin?", 45.070139f, 7.6700892f, "Turin", EUROPE));
+            db.execSQL(addQuestion("Wo ist London?", 51.5286416f, -0.1015987f, "London", EUROPE));
+            db.execSQL(addQuestion("Wo ist Kiew?", 50.4020355f, 30.5326905f, "Kiew", EUROPE));
+            db.execSQL(addQuestion("Wo befindet sich Bukarest?", 44.4378258f, 26.0946376f, "Bukarest", EUROPE));
+            db.execSQL(addQuestion("Wo ist Belgrad?", 44.8152453f, 20.4203223f, "Belgrad", EUROPE));
+
+            db.execSQL(addQuestion("Wo ist Shanghai?", 31.2243489f, 121.4767528f, "Shanghai", WORLD));
+            db.execSQL(addQuestion("Wo liegt Istanbul?", 41.0053215f, 29.0121795f, "Istanbul", WORLD));
+            db.execSQL(addQuestion("Wo ist Mumbai?", 19.0822507f, 72.8812042f, "Mumbai", WORLD));
+            db.execSQL(addQuestion("Wo ist Tokio?", 35.673343f, 139.710388f, "Tokio", WORLD));
+            db.execSQL(addQuestion("Wo ist New York?", 40.7033127f, -73.979681f, "New York", WORLD));
+            db.execSQL(addQuestion("Wo ist Kairo?", 30.0594885f, 31.2584644f, "Kairo", WORLD));
+            db.execSQL(addQuestion("Wo ist Bangkok?", 13.7246005f, 100.6331108f, "Bangkok", WORLD));
+            db.execSQL(addQuestion("Wo liegt Hongkong?", 22.3576782f, 114.1210181f, "Hongkong", WORLD));
+            db.execSQL(addQuestion("Wo befindet sich Rio de Janeiro?", -22.9112335f, -43.448334f, "Rio de Janeiro", WORLD));
+            db.execSQL(addQuestion("Wo ist Bagdad?", 33.311686f, 44.355905f, "Bagdad", WORLD));
+            db.execSQL(addQuestion("Wo ist Ankara?", 39.9033766f, 32.7627648f, "Ankara", WORLD));
+            db.execSQL(addQuestion("Wo liegt Los Angeles?", 34.0204989f, -118.4117325f, "Los Angeles", WORLD));
+            db.execSQL(addQuestion("Wo ist Sidney?", 33.7969235f, 150.9224326f, "Sidney", WORLD));
+            db.execSQL(addQuestion("Wo ist Singapur", 1.3147308f, 103.8470128f, "Singapur", WORLD));
+            db.execSQL(addQuestion("Wo liegt Chicago?", 41.8337329f, -87.7321555f, "Chicago", WORLD));
+            db.execSQL(addQuestion("Wo ist Buenos Aires", -34.6158238f, -58.4333203f, "Buenos Aires", WORLD));
+            db.execSQL(addQuestion("Wo liegt Kapstadt?", -33.9149861f, 18.6560594f, "Kapstadt", WORLD));
+            db.execSQL(addQuestion("Wo ist Houston?", 29.817178f, -95.4012915f, "Houston", WORLD));
+            db.execSQL(addQuestion("Wo ist Phoenix?", 33.6054149f, -112.125051f, "Phoenix", WORLD));
+            db.execSQL(addQuestion("Wo ist Moskau?", 55.749792f, 37.632495f, "Moskau", WORLD));
+            db.execSQL(addQuestion("Wo liegt San Diego?", 32.8245525f, -117.0951632f, "San Diego", WORLD));
+            db.execSQL(addQuestion("Wo befindet sich Dubai?", 24.979447f, 55.3127729f, "Dubai", WORLD));
+
         }
 
         @Override
