@@ -6,7 +6,14 @@
     <string name="action_settings">Settings</string>
 
     <string name="Information">Info</string>
-    <string name="InformationText">Hier kommt der Informationstext rein!</string>
+    <string name="InformationText">Informationen zum Spiel \n\n Willkommen bei QuizGame, ein Lernspiel für Groß und Klein.
+    \n Um ein neues Spiel zu beginnen klickst du auf Spiel Starten im Hauptmenü. Anschließend wählst du dir eine
+    Region aus, um die Fragen einzugrenzen. Dann geht es auch schon los. \n\n
+    Nun musst du in einer bestimmten Zeit möglichst viele Punkte erreichen, indem du einen Pin auf der Karte platziert und
+    versuchst das gesuchte Ziel so genau es geht zu treffen. Den Pin kannst du außerdem mit einem langen Klick von der
+        Karte lösen und an einen anderen Ort hinverschieben. Diese Vermutung logst du mit dem Bestätigen Button ein.
+        Abhängig von der Entfernung werden dir Punkte gut geschrieben. Ist die Zeit abgelaufen kannst du deinen Erfolg
+    mit deinem Highscore vergleichen.</string>
 
 
     <string name="App_Name">QuizGame</string>
