@@ -79,7 +79,7 @@ public class LocalHighscoreDb {
 
     private class LocalHighscoreDbOpenHelper extends SQLiteOpenHelper {
         private final String DATABASE_CREATE = "create table " + DATABASE_TABLE + " (" + KEY_ID + " integer primary key autoincrement, " + KEY_NAME +  " varchar(255), " + KEY_SCORE + " integer);";
-       // private final String DATABASE_INIT = "insert into " + DATABASE_TABLE + " (" + KEY_NAME + ", " + KEY_SCORE + ") values ('Spieler', 0);";
+        private final String DATABASE_INIT = "insert into " + DATABASE_TABLE + " (" + KEY_NAME + ", " + KEY_SCORE + ") values ('Spieler', 0);";
 
         public LocalHighscoreDbOpenHelper(Context c, String dbname, SQLiteDatabase.CursorFactory factory, int version) {
             super(c, dbname, factory, version);
@@ -88,7 +88,7 @@ public class LocalHighscoreDb {
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(DATABASE_CREATE);
-            //db.execSQL(DATABASE_INIT);
+            db.execSQL(DATABASE_INIT);
         }
 
         @Override
