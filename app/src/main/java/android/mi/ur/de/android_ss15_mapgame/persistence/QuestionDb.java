@@ -98,7 +98,7 @@ public class QuestionDb {
     //Returns all QuestionItems for the specified region (germany = 0, europe = 1, world = 2)
     public ArrayList<QuestionItem> getAllQuestionItems(int region) {
         ArrayList<QuestionItem> items = new ArrayList<QuestionItem>();
-        Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_ID, KEY_QUESTION, KEY_LATITUDE, KEY_LONGITUDE, KEY_ANSWER}, null, null, null, null, null);
+        Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_ID, KEY_QUESTION, KEY_LATITUDE, KEY_LONGITUDE, KEY_ANSWER, KEY_REGION}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 if (cursor.getInt(COLUMN_REGION_INDEX) <= region) {
