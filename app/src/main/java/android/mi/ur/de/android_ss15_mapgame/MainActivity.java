@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.mi.ur.de.android_ss15_mapgame.activities.GameActivity;
 import android.mi.ur.de.android_ss15_mapgame.activities.GameStart;
 import android.mi.ur.de.android_ss15_mapgame.activities.Highscore;
+import android.mi.ur.de.android_ss15_mapgame.activities.Info;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
 
+        Intent nextActivity = new Intent(MainActivity.this, Info.class);
+        startActivity(nextActivity);
 
         return super.onOptionsItemSelected(item);
     }
