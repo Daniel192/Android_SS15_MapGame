@@ -8,7 +8,10 @@ import android.mi.ur.de.android_ss15_mapgame.persistence.LocalHighscoreDb;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+
+import com.parse.ParseObject;
 
 /**
  * Created by Daniel on 24.08.2015.
@@ -17,9 +20,11 @@ public class GameResult extends Activity {
     private String score;
     private TextView scoreValue;
     private TextView highScore;
+    private EditText name;
 
     private Button again;
     private Button menu;
+    private Button submit;
 
     private LocalHighscoreDb db;
 
@@ -73,6 +78,21 @@ public class GameResult extends Activity {
             public void onClick(View v) {
                 Intent nextActivity = new Intent(GameResult.this, MainActivity.class);
                 startActivity(nextActivity);
+            }
+        });
+
+        name = (EditText) findViewById(R.id.scoreName);
+
+        submit = (Button) findViewById(R.id.submitHighscore);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ParseObject gameScore = new ParseObject("GameScore");
+                gameScore.put("playerName", name.getText().toString());
+                gameScore.put("score", score);
+                gameScore.saveInBackground();
+                submit.setEnabled(false);
             }
         });
 
