@@ -5,10 +5,22 @@ import android.content.Intent;
 import android.mi.ur.de.android_ss15_mapgame.MainActivity;
 import android.mi.ur.de.android_ss15_mapgame.R;
 import android.mi.ur.de.android_ss15_mapgame.persistence.LocalHighscoreDb;
+import android.mi.ur.de.android_ss15_mapgame.utility.highscoreAdapter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+
+
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.List;
+
 
 /**
  * Created by Daniel on 24.08.2015.
@@ -17,16 +29,24 @@ public class Highscore extends Activity{
 
     private Button menu;
     private TextView bestHighscore;
+    private ListView bestestHighscores;
     private LocalHighscoreDb db;
     private String score;
+    private highscoreAdapter itemAdapter;
+    private List<ParseObject> itemList;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         initDB();
-        updateHighscore();
+        initParse();
+        getLocalHighscore();
         setupUI();
+        getScoreList();
+    }
 
+    private void initParse() {
+        Parse.initialize(this, "FjnQ7hWVa83BIknGsWTu1Hh0NuQFHbzIpAgMmggK", "i1tHxKksviI1V7kbxsnMN2y3x0AX5DrtUEG5YTow");
     }
 
     private void setupUI(){
@@ -43,6 +63,26 @@ public class Highscore extends Activity{
 
         bestHighscore = (TextView) findViewById(R.id.bestHighscore);
         bestHighscore.setText(score);
+
+        bestestHighscores = (ListView) findViewById(R.id.onlineScores);
+    }
+
+    private void initAdapter() {
+        itemAdapter = new highscoreAdapter(this, itemList);
+        bestestHighscores.setAdapter(itemAdapter);
+        itemAdapter.notifyDataSetChanged();
+    }
+
+    private void getScoreList() {
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("GameScore");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> parseObjects, ParseException e) {
+                itemList = parseObjects;
+                initAdapter();
+            }
+        });
+
     }
 
     private void initDB() {
@@ -50,8 +90,8 @@ public class Highscore extends Activity{
         db.open();
     }
 
-    private void updateHighscore() {
-        score = String.valueOf(db.getScore());
+    private void getLocalHighscore() {
+        score = "Dein Highscore: " + String.valueOf(db.getScore());
     }
 
 }
