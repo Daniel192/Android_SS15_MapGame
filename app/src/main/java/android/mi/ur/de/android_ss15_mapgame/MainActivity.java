@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.parse.Parse;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Parse.initialize(this, "FjnQ7hWVa83BIknGsWTu1Hh0NuQFHbzIpAgMmggK", "i1tHxKksviI1V7kbxsnMN2y3x0AX5DrtUEG5YTow");
 
 
         singleplayerButton = (Button) findViewById(R.id.buttonSingleplayer);

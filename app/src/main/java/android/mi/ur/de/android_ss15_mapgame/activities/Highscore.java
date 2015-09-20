@@ -39,14 +39,9 @@ public class Highscore extends Activity{
         super.onCreate(savedInstanceState);
 
         initDB();
-        initParse();
         getLocalHighscore();
         setupUI();
         getScoreList();
-    }
-
-    private void initParse() {
-        Parse.initialize(this, "FjnQ7hWVa83BIknGsWTu1Hh0NuQFHbzIpAgMmggK", "i1tHxKksviI1V7kbxsnMN2y3x0AX5DrtUEG5YTow");
     }
 
     private void setupUI(){
