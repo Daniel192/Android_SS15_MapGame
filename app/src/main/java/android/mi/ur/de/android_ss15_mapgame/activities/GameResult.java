@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.parse.Parse;
 import com.parse.ParseObject;
 
 /**
@@ -31,11 +32,15 @@ public class GameResult extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Parse.initialize(this, "FjnQ7hWVa83BIknGsWTu1Hh0NuQFHbzIpAgMmggK", "i1tHxKksviI1V7kbxsnMN2y3x0AX5DrtUEG5YTow");
+
         super.onCreate(savedInstanceState);
         initDB();
         getExtras();
         updateHighscore();
         setupUI();
+
     }
 
     private void getExtras() {
