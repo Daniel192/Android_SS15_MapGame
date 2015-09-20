@@ -8,12 +8,14 @@
         android:id="@+id/onlinescoreName"
         android:layout_width="0dp"
         android:layout_weight="0.7"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="25dp"/>
 
     <TextView
         android:id="@+id/onlineScoreValue"
         android:layout_width="0dp"
         android:layout_weight="0.3"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="25dp"/>
 
 </LinearLayout>

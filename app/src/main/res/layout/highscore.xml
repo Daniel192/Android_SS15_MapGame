@@ -21,7 +21,9 @@
        <ListView
            android:id="@+id/onlineScores"
            android:layout_width="match_parent"
-           android:layout_height="wrap_content">
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/highscore"
+           android:layout_above="@+id/bestHighscore">
 
        </ListView>
 
