@@ -26,9 +26,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Parse.initialize(this, "FjnQ7hWVa83BIknGsWTu1Hh0NuQFHbzIpAgMmggK", "i1tHxKksviI1V7kbxsnMN2y3x0AX5DrtUEG5YTow");
-
-
         singleplayerButton = (Button) findViewById(R.id.buttonSingleplayer);
         singleplayerButton.setOnClickListener(new View.OnClickListener() {
              @Override
