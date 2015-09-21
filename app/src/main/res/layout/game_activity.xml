@@ -17,42 +17,43 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@color/semitransparent"
-        android:textSize="20dp"/>
+        android:textSize="@dimen/textSize"/>
 
 
     <ProgressBar
         android:id="@+id/time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@android:style/Widget.Holo.ProgressBar.Horizontal"
-        android:layout_below="@+id/exercise"/>
+        android:layout_below="@+id/exercise"
+        style="@android:style/Widget.Holo.ProgressBar.Horizontal"/>
 
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_below="@id/exercise"
-    android:id="@+id/part"
-    android:layout_marginTop="10dp"
-    android:background="@color/semitransparent"
-    android:weightSum="1.0">
+        android:id="@+id/part"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/exercise"
+        android:weightSum="1.0"
+        android:layout_marginTop="@dimen/margin10"
+        android:background="@color/semitransparent">
+
 
     <TextView
         android:id="@+id/timeNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:layout_weight="0.5"/>
+        android:layout_weight="0.5"
+        android:textSize="@dimen/textSize"/>
 
 
     <TextView
         android:id="@+id/score"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="0.5"
         android:text="Score: 0"
-        android:textSize="20dp"
-        android:layout_weight="0.5"/>
+        android:textSize="@dimen/textSize"/>
 
 
 </LinearLayout>
@@ -63,10 +64,10 @@
         android:id="@+id/confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:text="Bestätigen"
         android:textStyle="bold"
-        android:background="@color/semitransparent"
-        android:layout_alignParentBottom="true"/>
+        android:background="@color/semitransparent"/>
 
 
 </RelativeLayout>

@@ -4,6 +4,14 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
 
-    <dimen name="headline">30dp</dimen>
+    <dimen name="bigHeadline">60dp</dimen>
+    <dimen name="smallHeadline">30dp</dimen>
+    <dimen name="textSize">20dp</dimen>
+    <dimen name="smallTextSize">15dp</dimen>
+    <dimen name="bigTextSize">25dp</dimen>
+    <dimen name="spaceButton">10dp</dimen>
+    <dimen name="margin50">50dp</dimen>
+    <dimen name="margin30">30dp</dimen>
+    <dimen name="margin10">10dp</dimen>
 
 </resources>

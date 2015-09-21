@@ -14,12 +14,12 @@
         android:id="@+id/highscore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Highscore"
-        android:textSize="30dp"
-        android:textStyle="bold"
         android:gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="50dp"/>
+         android:layout_marginTop="@dimen/margin30"
+         android:layout_marginBottom="@dimen/margin50"
+        android:text="Highscore"
+        android:textSize="@dimen/smallHeadline"
+        android:textStyle="bold"/>
 
 
 
@@ -37,12 +37,13 @@
         android:id="@+id/bestHighscore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Your Best: 590"
-        android:textSize="30dp"
-        android:textStyle="bold"
         android:gravity="center"
-        android:layout_marginBottom="30dp"
-        android:layout_above="@+id/highscoreMenu"/>
+        android:layout_marginBottom="@dimen/margin30"
+        android:layout_above="@+id/highscoreMenu"
+        android:text="Your Best: 590"
+        android:textSize="@dimen/smallHeadline"
+        android:textStyle="bold"/>
+
 
     <Button
         android:id="@+id/highscoreMenu"
@@ -51,9 +52,8 @@
         android:layout_alignParentBottom="true"
         android:text="@string/Menu"
         android:textColor="@color/white"
-        android:textSize="20dp"
+        android:textSize="@dimen/textSize"
         android:background="@drawable/buttonshape"/>
-
 
 
 </RelativeLayout>

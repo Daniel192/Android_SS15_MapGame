@@ -16,51 +16,50 @@
         android:id="@+id/Gamename"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/App_Name"
         android:gravity="center"
-        android:textSize="60dp"
-        android:textColor="@color/black"
-        android:layout_marginBottom="10dp"
-        />
+        android:layout_marginBottom="@dimen/spaceButton"
+        android:text="@string/App_Name"
+        android:textSize="@dimen/bigHeadline"
+        android:textColor="@color/black"/>
 
     <Button
         android:id="@+id/buttonSingleplayer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spaceButton"
         android:text="@string/Singleplayer"
+        android:textSize="@dimen/textSize"
         android:textColor="@color/white"
-        android:textSize="20dp"
-        android:background="@drawable/buttonshape"
-        android:layout_marginBottom="10dp"/>
+        android:background="@drawable/buttonshape"/>
 
-  <Button
+    <Button
         android:id="@+id/buttonMultiplayer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spaceButton"
         android:text="@string/Multiplayer"
-        android:visibility="gone"
+        android:textSize="@dimen/textSize"
         android:textColor="@color/white"
-        android:textSize="20sp"
         android:background="@drawable/buttonshape"
-        android:layout_marginBottom="10dp"/>
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/buttonHighscore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spaceButton"
         android:text="@string/Highscore"
+        android:textSize="@dimen/textSize"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        android:background="@drawable/buttonshape"
-        android:layout_marginBottom="10dp"/>
+        android:background="@drawable/buttonshape"/>
 
     <Button
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Discription"
+        android:textSize="@dimen/textSize"
         android:textColor="@color/white"
-        android:textSize="20sp"
         android:background="@drawable/buttonshape"/>
 
 </LinearLayout>

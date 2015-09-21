@@ -12,21 +12,21 @@
         android:id="@+id/resultScore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/YourScore"
         android:gravity="center"
-        android:textSize="@dimen/headline"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginTop="@dimen/margin30"
+        android:layout_marginBottom="@dimen/margin50"
+        android:text="@string/YourScore"
+        android:textSize="@dimen/smallHeadline"/>
 
 
     <TextView
         android:id="@+id/scoreValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:layout_below="@+id/resultScore"
-        android:textSize="50dp"
-        android:textStyle="bold"
-        android:gravity="center"/>
+        android:textSize="@dimen/smallHeadline"
+        android:textStyle="bold"/>
 
     <LinearLayout
         android:id="@+id/gameResultLayout"
@@ -38,23 +38,24 @@
         android:layout_marginBottom="40dp">
 
 
-        <EditText
-            android:id="@+id/scoreName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8"
-            android:hint="@string/Name"
-            android:gravity="center"/>
+    <EditText
+       android:id="@+id/scoreName"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:layout_weight="0.8"
+       android:gravity="center"
+       android:hint="@string/Name"/>
 
-        <Button
-            android:id="@+id/submitHighscore"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:text="ok"/>
+    <Button
+       android:id="@+id/submitHighscore"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:layout_weight="0.2"
+       android:text="ok"/>
 
 
      </LinearLayout>
+
 
     <TextView
         android:id="@+id/gameResultHighscoreText"
@@ -62,9 +63,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/gameResultLayout"
         android:gravity="center"
+        android:layout_marginBottom="@dimen/margin30"
         android:text="@string/YourHighscore"
-        android:textSize="30dp"
-        android:layout_marginBottom="30dp"/>
+        android:textSize="@dimen/smallHeadline"/>
+
 
     <TextView
         android:id="@+id/gameResultHighscore"
@@ -72,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/gameResultHighscoreText"
         android:gravity="center"
-        android:textSize="30dp"
+        android:textSize="@dimen/smallHeadline"
         android:textStyle="bold"/>
 
 
@@ -81,11 +83,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/resultMenu"
+        android:layout_marginBottom="@dimen/spaceButton"
         android:text="@string/PlayAgain"
         android:textColor="@color/white"
-        android:textSize="20dp"
-        android:background="@drawable/buttonshape"
-        android:layout_marginBottom="10dp"/>
+        android:textSize="@dimen/textSize"
+        android:background="@drawable/buttonshape"/>
+
 
     <Button
         android:id="@+id/resultMenu"
@@ -94,7 +97,7 @@
         android:layout_alignParentBottom="true"
         android:text="@string/Menu"
         android:textColor="@color/white"
-        android:textSize="20dp"
+        android:textSize="@dimen/textSize"
         android:background="@drawable/buttonshape"/>
 
 

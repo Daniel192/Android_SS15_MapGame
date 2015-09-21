@@ -12,18 +12,18 @@
         android:id="@+id/infoText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/margin10"
         android:text="@string/InformationText"
-        android:textSize="15dp"/>
+        android:textSize="@dimen/smallTextSize"/>
 
     <Button
         android:id="@+id/infoMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Menu"
         android:layout_alignParentBottom="true"
+        android:text="@string/Menu"
         android:textColor="@color/white"
-        android:textSize="20dp"
+        android:textSize="@dimen/textSize"
         android:background="@drawable/buttonshape"/>
 
 </RelativeLayout>
