@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private Button singleplayerButton;
+    private Button highscoreButton;
+    private Button descriptionButton;
 
 
     @Override
@@ -38,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
               });
 
 
-       Button buttonHighscore = (Button) findViewById(R.id.buttonHighscore);
-       buttonHighscore.setOnClickListener(new View.OnClickListener() {
+       highscoreButton = (Button) findViewById(R.id.buttonHighscore);
+       highscoreButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
 
@@ -48,6 +50,17 @@ public class MainActivity extends AppCompatActivity {
 
            }
        });
+
+        descriptionButton = (Button) findViewById(R.id.description);
+        descriptionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent nextAcitivity = new Intent(MainActivity.this, Info.class);
+                startActivity(nextAcitivity);
+
+            }
+        });
 
     }
 
