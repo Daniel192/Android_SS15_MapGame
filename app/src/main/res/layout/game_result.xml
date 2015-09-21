@@ -76,14 +76,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/resultMenu"
-        android:text="@string/PlayAgain"/>
+        android:text="@string/PlayAgain"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:background="@drawable/buttonshape"
+        android:layout_marginBottom="10dp"/>
 
     <Button
         android:id="@+id/resultMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/Menu"/>
+        android:text="@string/Menu"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:background="@drawable/buttonshape"/>
 
 
 </RelativeLayout>

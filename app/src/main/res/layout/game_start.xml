@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:text="@string/Singleplayer"
         android:textSize="@dimen/headline"
+        android:textStyle="bold"
         android:gravity="center"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="30dp"/>
@@ -25,33 +26,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Germany"
+        android:textSize="20dp"
+        android:textColor="@color/white"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginStart="50dp"/>
+        android:layout_marginStart="50dp"
+        android:background="@drawable/buttonshape"/>
 
     <Button
         android:id="@+id/europa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Europa"
+        android:textSize="20dp"
+        android:textColor="@color/white"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginStart="50dp"/>
+        android:layout_marginStart="50dp"
+        android:background="@drawable/buttonshape"/>
 
     <Button
         android:id="@+id/worldwide"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Worldwide"
-
+        android:textSize="20dp"
+        android:textColor="@color/white"
         android:layout_marginEnd="50dp"
-        android:layout_marginStart="50dp"/>
+        android:layout_marginStart="50dp"
+        android:background="@drawable/buttonshape"/>
 
     <RadioButton
         android:id="@+id/question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Questions"
+        android:textSize="20dp"
         android:layout_marginBottom="100dp"
         android:layout_marginEnd="50dp"
         android:layout_marginStart="50dp"
@@ -64,6 +74,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Menu"
-        android:layout_alignParentBottom="true"/>
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/buttonshape"/>
 
 </RelativeLayout>
