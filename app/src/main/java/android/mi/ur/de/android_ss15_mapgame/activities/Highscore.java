@@ -19,6 +19,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -73,6 +75,18 @@ public class Highscore extends Activity{
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, ParseException e) {
+                Collections.sort(parseObjects, new Comparator<ParseObject>() {
+                    @Override
+                    public int compare(ParseObject objectOne, ParseObject objectTwo) {
+                        if(Integer.parseInt(objectOne.getString("score"))>Integer.parseInt(objectTwo.getString("score"))){
+                            return -1;
+                        } else if(Integer.parseInt(objectOne.getString("score"))<Integer.parseInt(objectTwo.getString("score"))){
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+                    }
+                });
                 itemList = parseObjects;
                 initAdapter();
             }
