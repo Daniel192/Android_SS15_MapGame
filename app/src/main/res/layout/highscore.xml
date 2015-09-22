@@ -15,25 +15,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-         android:layout_marginTop="@dimen/margin30"
-         android:layout_marginBottom="@dimen/margin50"
+        android:layout_marginTop="@dimen/margin10"
+        android:layout_marginBottom="@dimen/margin30"
         android:text="Highscore"
         android:textSize="@dimen/smallHeadline"
         android:textStyle="bold"/>
 
 
+     <Spinner
+         android:id="@+id/chooseCountry"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="@dimen/margin10"
+         android:layout_below="@+id/highscore"
+         android:prompt="@array/country_array">
+     </Spinner>
 
-       <ListView
-           android:id="@+id/onlineScores"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_below="@+id/highscore"
-           android:layout_above="@+id/bestHighscore">
 
-       </ListView>
+     <ListView
+         android:id="@+id/onlineScores"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="@dimen/margin10"
+         android:layout_below="@+id/chooseCountry"
+         android:layout_above="@+id/bestHighscore">
+
+     </ListView>
 
 
-        <TextView
+     <TextView
         android:id="@+id/bestHighscore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,7 +55,7 @@
         android:textStyle="bold"/>
 
 
-    <Button
+      <Button
         android:id="@+id/highscoreMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

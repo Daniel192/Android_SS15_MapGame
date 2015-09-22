@@ -8,13 +8,15 @@ import android.mi.ur.de.android_ss15_mapgame.persistence.LocalHighscoreDb;
 import android.mi.ur.de.android_ss15_mapgame.utility.highscoreAdapter;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -27,15 +29,21 @@ import java.util.List;
 /**
  * Created by Daniel on 24.08.2015.
  */
-public class Highscore extends Activity{
+public class Highscore extends Activity {
 
     private Button menu;
     private TextView bestHighscore;
-    private ListView bestestHighscores;
+    private ListView highscoreListView;
     private LocalHighscoreDb db;
     private String score;
     private highscoreAdapter itemAdapter;
     private List<ParseObject> itemList;
+    private Spinner spinner;
+
+    private static int GERMANY = 0;
+    private static int EUROPE = 1;
+    private static int WORLD = 2;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +51,10 @@ public class Highscore extends Activity{
         initDB();
         getLocalHighscore();
         setupUI();
-        getScoreList();
+        getScoreList(GERMANY);
     }
 
-    private void setupUI(){
+    private void setupUI() {
         setContentView(R.layout.highscore);
 
         menu = (Button) findViewById(R.id.highscoreMenu);
@@ -61,16 +69,18 @@ public class Highscore extends Activity{
         bestHighscore = (TextView) findViewById(R.id.bestHighscore);
         bestHighscore.setText(score);
 
-        bestestHighscores = (ListView) findViewById(R.id.onlineScores);
+        highscoreListView = (ListView) findViewById(R.id.onlineScores);
+
+        setupSpinner();
     }
 
     private void initAdapter() {
         itemAdapter = new highscoreAdapter(this, itemList);
-        bestestHighscores.setAdapter(itemAdapter);
+        highscoreListView.setAdapter(itemAdapter);
         itemAdapter.notifyDataSetChanged();
     }
 
-    private void getScoreList() {
+    private void getScoreList(int region) {
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("GameScore");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -78,9 +88,9 @@ public class Highscore extends Activity{
                 Collections.sort(parseObjects, new Comparator<ParseObject>() {
                     @Override
                     public int compare(ParseObject objectOne, ParseObject objectTwo) {
-                        if(Integer.parseInt(objectOne.getString("score"))>Integer.parseInt(objectTwo.getString("score"))){
+                        if (Integer.parseInt(objectOne.getString("score")) > Integer.parseInt(objectTwo.getString("score"))) {
                             return -1;
-                        } else if(Integer.parseInt(objectOne.getString("score"))<Integer.parseInt(objectTwo.getString("score"))){
+                        } else if (Integer.parseInt(objectOne.getString("score")) < Integer.parseInt(objectTwo.getString("score"))) {
                             return 1;
                         } else {
                             return 0;
@@ -103,4 +113,41 @@ public class Highscore extends Activity{
         score = "Dein Highscore: " + String.valueOf(db.getScore());
     }
 
+
+    private void setupSpinner() {
+
+        spinner = (Spinner) findViewById(R.id.chooseCountry);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.country_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                switch (position) {
+
+                    case 0:
+                        getScoreList(GERMANY);
+                        break;
+
+                    case 1:
+                        getScoreList(EUROPE);
+                        break;
+
+                    case 2:
+                        getScoreList(WORLD);
+                        break;
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
 }

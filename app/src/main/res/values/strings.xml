@@ -36,4 +36,13 @@
     <string name="Menu">Menü</string>
 
 
+
+    <string-array name="country_array">
+         <item>Deutschland</item>
+         <item>Europa</item>
+         <item>Weltweit</item>
+    </string-array>
+
+
+
 </resources>
