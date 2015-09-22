@@ -126,6 +126,51 @@ public class QuestionDb {
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(DATABASE_CREATE);
+
+            db.execSQL(addQuestion("Wo ist Berlin?", 52.5075419f, 13.4251364f, "Berlin", GERMANY));
+            db.execSQL(addQuestion("Wo ist Hamburg?", 53.558572f, 9.9278215f, "Hamburg", GERMANY));
+            db.execSQL(addQuestion("Wo ist München?", 48.1549107f, 11.5418357f, "München", GERMANY));
+            db.execSQL(addQuestion("Wo ist Düsseldorf?", 51.2384547f, 6.8143502f, "Düsseldorf", GERMANY));
+            db.execSQL(addQuestion("Wo ist Dortmund?", 51.5078845f, 7.4702625f, "Dortmund", GERMANY));
+            db.execSQL(addQuestion("Wo ist Bremen?", 53.1202572f, 8.7362858f, "Bremen", GERMANY));
+            db.execSQL(addQuestion("Wo ist Hannover?", 52.3796664f, 9.7614715f, "Hannover", GERMANY));
+            db.execSQL(addQuestion("Wo ist Duisburg?", 52.5075419f, 6.7279745f, "Duisburg", GERMANY));
+            db.execSQL(addQuestion("Wo ist Bochum?", 51.4709074f, 7.2255577f, "Bochum", GERMANY));
+            db.execSQL(addQuestion("Wo ist Wuppertal?", 51.2418917f, 7.1637667f, "Wuppertal", GERMANY));
+            db.execSQL(addQuestion("Wo ist Bielefeld?", 52.0148115f, 8.5206095f, "Bielefeld", GERMANY));
+            db.execSQL(addQuestion("Wo ist Bonn?", 50.703577f, 7.1157122f, "Bonn", GERMANY));
+            db.execSQL(addQuestion("Wo ist Münster?", 51.9500854f, 7.6240971f, "Münster", GERMANY));
+            db.execSQL(addQuestion("Wo ist Karlsruhe?", 49.0158491f, 8.4095339f, "Karlsruhe", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Augsburg?", 48.3583992f, 10.8614402f, "Augsburg", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Braunschweig?", 52.2721924f, 10.527885f, "Braunschweig", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Chemnitz?", 50.8226152f, 12.8909761f, "Chemnitz", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Aachen?", 50.75968f, 6.0965247f, "Aachen", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Krefeld?", 51.3456345f, 6.5920815f, "Krefeld", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Kiel?", 54.3418129f, 10.125677f, "Kiel", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Saarbrücken?", 49.2471573f, 6.9825383f, "Saarbrücken", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Potsdam?", 52.4283615f, 13.0274123f, "Potsdam", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Leverkusen?", 51.0541742f, 7.006992f, "Leverkusen", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Osnabrück?", 52.2779866f, 8.0554295f, "Osnabrück", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Solingen?", 51.1672852f, 7.0626138f, "Solingen", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Heidelberg?", 49.4057284f, 8.6836142f, "Heidelberg", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Paderborn?", 51.7276064f, 8.7684325f, "Paderborn", GERMANY));
+            db.execSQL(addQuestion("Wo befindet sich Ingolstadt?", 48.7533744f, 11.3796516f, "Ingolstadt", GERMANY));
+            db.execSQL(addQuestion("Wo liegt Wolfsburg?", 52.4055354f, 10.7769022f, "Wolfsburg", GERMANY));
+            db.execSQL(addQuestion("Wo liegt Würzburg?", 49.7780731f, 9.9430286f, "Würzburg", GERMANY));
+            db.execSQL(addQuestion("Wo liegt Ulm?", 48.387589f, 9.9424448f, "Ulm", GERMANY));
+            db.execSQL(addQuestion("Wo liegt Pforzheim?", 48.8743578f, 8.7167653f, "Pforzheim", GERMANY));
+            db.execSQL(addQuestion("Wo liegt Göttingen?", 51.5369374f, 9.9268528f, "Göttingen", GERMANY));
+            db.execSQL(addQuestion("Wo liegt Recklinghausen?", 51.6020641f, 7.2149296f, "Altötting", GERMANY));
+            db.execSQL(addQuestion("Wo liegt Koblenz?", 50.3462931f, 7.5885547f, "Koblenz", GERMANY));
+            db.execSQL(addQuestion("Wo liegt Bremerhaven?", 53.543008f, 8.5827881f, "Bremerhaven", GERMANY));
+            db.execSQL(addQuestion("Wo liegt Jena?", 50.922513f, 11.5859738f, "Jena", GERMANY));
+            db.execSQL(addQuestion("Wo liegt Trier?", 49.7778813f, 6.6494598f, "Trier", GERMANY));
+            db.execSQL(addQuestion("Wo liegt Passau?", 48.5769408f, 13.4083659f, "Passau", GERMANY));
+            db.execSQL(addQuestion("Wo liegt Dresden?", 51.0768337f, 13.7725857f, "Dresden", GERMANY));
+
+
+
+
             db.execSQL(addQuestion("Wo liegt Altötting?", 48.2263996f, 12.6701338f, "Altötting", GERMANY));
             db.execSQL(addQuestion("Wo befindet sich Coburg?", 50.2603389f, 10.9755166f, "Coburg", GERMANY));
             db.execSQL(addQuestion("Wo ist Erfurt?", 50.9853404f, 11.0153355f, "Erfurt", GERMANY));
