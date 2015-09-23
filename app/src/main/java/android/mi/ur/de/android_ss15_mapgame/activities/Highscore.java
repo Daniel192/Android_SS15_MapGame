@@ -32,7 +32,7 @@ import java.util.List;
 public class Highscore extends Activity {
 
     private Button menu;
-    private TextView bestHighscore;
+    private TextView localHighscore;
     private ListView highscoreListView;
     private LocalHighscoreDb db;
     private String score;
@@ -49,8 +49,8 @@ public class Highscore extends Activity {
         super.onCreate(savedInstanceState);
 
         initDB();
-        getLocalHighscore();
         setupUI();
+        getLocalHighscore(GERMANY);
         getScoreList(GERMANY);
     }
 
@@ -66,8 +66,7 @@ public class Highscore extends Activity {
             }
         });
 
-        bestHighscore = (TextView) findViewById(R.id.bestHighscore);
-        bestHighscore.setText(score);
+        localHighscore = (TextView) findViewById(R.id.bestHighscore);
 
         highscoreListView = (ListView) findViewById(R.id.onlineScores);
 
@@ -82,6 +81,7 @@ public class Highscore extends Activity {
 
     private void getScoreList(int region) {
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("GameScore");
+        query.whereEqualTo("region", region);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, ParseException e) {
@@ -109,8 +109,9 @@ public class Highscore extends Activity {
         db.open();
     }
 
-    private void getLocalHighscore() {
-        score = "Dein Highscore: " + String.valueOf(db.getScore());
+    private void getLocalHighscore(int region) {
+        score = "Dein Highscore: " + String.valueOf(db.getScore(region));
+        localHighscore.setText(score);
     }
 
 
@@ -130,14 +131,17 @@ public class Highscore extends Activity {
 
                     case 0:
                         getScoreList(GERMANY);
+                        getLocalHighscore(GERMANY);
                         break;
 
                     case 1:
                         getScoreList(EUROPE);
+                        getLocalHighscore(EUROPE);
                         break;
 
                     case 2:
                         getScoreList(WORLD);
+                        getLocalHighscore(WORLD);
                         break;
 
                 }

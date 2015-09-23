@@ -19,11 +19,15 @@ public class LocalHighscoreDb {
     private static final String DATABASE_TABLE = "localHighscore";
 
     private static final String KEY_ID = "_id";
-    private static final String KEY_NAME = "name";
     private static final String KEY_SCORE = "score";
+    private static final String KEY_REGION = "region";
 
-    private static final int COLUMN_NAME_INDEX = 1;
-    private static final int COLUMN_SCORE_INDEX = 2;
+    private static final int GERMANY = 0;
+    private static final int EUROPE = 1;
+    private static final int WORLD = 2;
+
+    private static final int COLUMN_SCORE_INDEX = 1;
+    private static final int COLUMN_REGION_INDEX = 2;
 
 
     private LocalHighscoreDbOpenHelper dbHelper;
@@ -46,40 +50,33 @@ public class LocalHighscoreDb {
         db.close();
     }
 
-    public long updateName(String name){
-        ContentValues newScoreValues = new ContentValues();
-        newScoreValues.put(KEY_NAME, name);
-        return db.update(DATABASE_TABLE, newScoreValues, null, null);
-    }
 
-    public long updateScore(int score){
+    public long updateScore(int score, int region){
+        String whereClause = KEY_REGION + " = " + region + ";";
         ContentValues newScoreValues = new ContentValues();
         newScoreValues.put(KEY_SCORE, score);
-        return db.update(DATABASE_TABLE, newScoreValues, null, null);
+        return db.update(DATABASE_TABLE, newScoreValues, whereClause, null);
     }
 
-    public String getName(){
-        String name = "";
-        Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_ID, KEY_NAME, KEY_SCORE}, null, null, null, null, null);
-        if (cursor.moveToFirst()) {
-           name = cursor.getString(COLUMN_NAME_INDEX);
-        }
-        return name;
-    }
-
-    public int getScore(){
+    public int getScore(int region){
         int score = 0;
-        Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_ID, KEY_NAME, KEY_SCORE}, null, null, null, null, null);
+        Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_ID, KEY_SCORE, KEY_REGION}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
-            score = cursor.getInt(COLUMN_SCORE_INDEX);
+            do {
+                if (cursor.getInt(COLUMN_REGION_INDEX) == region) {
+                    score = cursor.getInt(COLUMN_SCORE_INDEX);
+                }
+            }while (cursor.moveToNext());
         }
         return score;
     }
 
 
     private class LocalHighscoreDbOpenHelper extends SQLiteOpenHelper {
-        private final String DATABASE_CREATE = "create table " + DATABASE_TABLE + " (" + KEY_ID + " integer primary key autoincrement, " + KEY_NAME +  " varchar(255), " + KEY_SCORE + " integer);";
-        private final String DATABASE_INIT = "insert into " + DATABASE_TABLE + " (" + KEY_NAME + ", " + KEY_SCORE + ") values ('Spieler', 0);";
+        private final String DATABASE_CREATE = "create table " + DATABASE_TABLE + " (" + KEY_ID + " integer primary key autoincrement, " + KEY_SCORE + " integer, " + KEY_REGION + " integer);";
+        private final String DATABASE_INIT_REGION_1 = "insert into " + DATABASE_TABLE + " (" + KEY_SCORE + ", " + KEY_REGION + ") values (0, " + GERMANY + ");";
+        private final String DATABASE_INIT_REGION_2 = "insert into " + DATABASE_TABLE + " (" + KEY_SCORE + ", " + KEY_REGION + ") values (0, " + EUROPE + ");";
+        private final String DATABASE_INIT_REGION_3 = "insert into " + DATABASE_TABLE + " (" + KEY_SCORE + ", " + KEY_REGION + ") values (0, " + WORLD + ");";
 
         public LocalHighscoreDbOpenHelper(Context c, String dbname, SQLiteDatabase.CursorFactory factory, int version) {
             super(c, dbname, factory, version);
@@ -88,7 +85,9 @@ public class LocalHighscoreDb {
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(DATABASE_CREATE);
-            db.execSQL(DATABASE_INIT);
+            db.execSQL(DATABASE_INIT_REGION_1);
+            db.execSQL(DATABASE_INIT_REGION_2);
+            db.execSQL(DATABASE_INIT_REGION_3);
         }
 
         @Override

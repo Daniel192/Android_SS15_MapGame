@@ -237,6 +237,7 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
         Intent nextActivity = new Intent(GameActivity.this, GameResult.class);
 
         nextActivity.putExtra("score", String.valueOf(score));
+        nextActivity.putExtra("region", region);
         startActivity(nextActivity);
         finish();
     }

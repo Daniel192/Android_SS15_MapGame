@@ -22,6 +22,7 @@ public class GameResult extends Activity {
     private TextView scoreValue;
     private TextView highScore;
     private EditText name;
+    private int region;
 
     private Button again;
     private Button menu;
@@ -44,11 +45,12 @@ public class GameResult extends Activity {
     private void getExtras() {
         Bundle extras = getIntent().getExtras();
         score = extras.getString("score");
+        region = extras.getInt("region");
     }
 
     private void updateHighscore() {
-        if(Integer.parseInt(score) > db.getScore()){
-            db.updateScore(Integer.parseInt(score));
+        if(Integer.parseInt(score) > db.getScore(region)){
+            db.updateScore(Integer.parseInt(score), region);
         }
     }
 
@@ -64,7 +66,7 @@ public class GameResult extends Activity {
         scoreValue.setText(score);
 
         highScore = (TextView) findViewById(R.id.gameResultHighscore);
-        highScore.setText(String.valueOf(db.getScore()));
+        highScore.setText(String.valueOf(db.getScore(region)));
 
         again = (Button) findViewById(R.id.playagain);
         again.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +96,7 @@ public class GameResult extends Activity {
                 ParseObject gameScore = new ParseObject("GameScore");
                 gameScore.put("playerName", name.getText().toString());
                 gameScore.put("score", score);
+                gameScore.put("region", region);
                 gameScore.saveInBackground();
                 submit.setEnabled(false);
             }
