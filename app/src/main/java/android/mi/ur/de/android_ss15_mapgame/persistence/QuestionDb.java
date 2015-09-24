@@ -101,7 +101,7 @@ public class QuestionDb {
         Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_ID, KEY_QUESTION, KEY_LATITUDE, KEY_LONGITUDE, KEY_ANSWER, KEY_REGION}, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
-                if (cursor.getInt(COLUMN_REGION_INDEX) <= region) {
+                if (cursor.getInt(COLUMN_REGION_INDEX) == region) {
                     String question = cursor.getString(COLUMN_QUESTION_INDEX);
                     String answer = cursor.getString(COLUMN_ANSWER_INDEX);
                     float latitude = cursor.getFloat(COLUMN_LATITUDE_INDEX);
