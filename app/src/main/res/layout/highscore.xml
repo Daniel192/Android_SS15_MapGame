@@ -42,6 +42,14 @@
 
      </ListView>
 
+    <TextView
+        android:id ="@+id/onlineScoreLoading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chooseCountry"
+        android:textSize="@dimen/bigTextSize"
+        android:gravity="center"/>
+
 
      <TextView
         android:id="@+id/bestHighscore"

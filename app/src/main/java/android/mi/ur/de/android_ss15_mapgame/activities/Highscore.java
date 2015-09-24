@@ -33,12 +33,16 @@ public class Highscore extends Activity {
 
     private Button menu;
     private TextView localHighscore;
+    private TextView loading;
     private ListView highscoreListView;
     private LocalHighscoreDb db;
     private String score;
     private highscoreAdapter itemAdapter;
     private List<ParseObject> itemList;
     private Spinner spinner;
+
+    private static final String LOADING_SCORES = "Highscore wird geladen..";
+    private static final String NO_HIGHSCORES = "Noch kein Highscore!";
 
     private static int GERMANY = 0;
     private static int EUROPE = 1;
@@ -70,6 +74,8 @@ public class Highscore extends Activity {
 
         highscoreListView = (ListView) findViewById(R.id.onlineScores);
 
+        loading = (TextView) findViewById(R.id.onlineScoreLoading);
+
         setupSpinner();
     }
 
@@ -80,23 +86,32 @@ public class Highscore extends Activity {
     }
 
     private void getScoreList(int region) {
+        highscoreListView.setVisibility(View.INVISIBLE);
+        loading.setVisibility(View.VISIBLE);
+        loading.setText(LOADING_SCORES);
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("GameScore");
         query.whereEqualTo("region", region);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, ParseException e) {
-                Collections.sort(parseObjects, new Comparator<ParseObject>() {
-                    @Override
-                    public int compare(ParseObject objectOne, ParseObject objectTwo) {
-                        if (Integer.parseInt(objectOne.getString("score")) > Integer.parseInt(objectTwo.getString("score"))) {
-                            return -1;
-                        } else if (Integer.parseInt(objectOne.getString("score")) < Integer.parseInt(objectTwo.getString("score"))) {
-                            return 1;
-                        } else {
-                            return 0;
+                if (parseObjects.size() <= 0) {
+                    loading.setText(NO_HIGHSCORES);
+                } else {
+                    loading.setVisibility(View.GONE);
+                    highscoreListView.setVisibility(View.VISIBLE);
+                    Collections.sort(parseObjects, new Comparator<ParseObject>() {
+                        @Override
+                        public int compare(ParseObject objectOne, ParseObject objectTwo) {
+                            if (Integer.parseInt(objectOne.getString("score")) > Integer.parseInt(objectTwo.getString("score"))) {
+                                return -1;
+                            } else if (Integer.parseInt(objectOne.getString("score")) < Integer.parseInt(objectTwo.getString("score"))) {
+                                return 1;
+                            } else {
+                                return 0;
+                            }
                         }
-                    }
-                });
+                    });
+                }
                 itemList = parseObjects;
                 initAdapter();
             }

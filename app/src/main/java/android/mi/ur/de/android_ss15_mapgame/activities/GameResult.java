@@ -6,10 +6,12 @@ import android.mi.ur.de.android_ss15_mapgame.MainActivity;
 import android.mi.ur.de.android_ss15_mapgame.R;
 import android.mi.ur.de.android_ss15_mapgame.persistence.LocalHighscoreDb;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -27,6 +29,12 @@ public class GameResult extends Activity {
     private Button again;
     private Button menu;
     private Button submit;
+
+    private static final String ENTER_NAME = "Bitte Namen eingeben!";
+    private static final String HIGHSCORE_UPLOADED = "Punktestand wurde hochgeladen!";
+    private static final int DURATION = Toast.LENGTH_LONG;
+
+    private Toast toast;
 
     private LocalHighscoreDb db;
 
@@ -93,12 +101,22 @@ public class GameResult extends Activity {
             @Override
             public void onClick(View v) {
 
-                ParseObject gameScore = new ParseObject("GameScore");
-                gameScore.put("playerName", name.getText().toString());
-                gameScore.put("score", score);
-                gameScore.put("region", region);
-                gameScore.saveInBackground();
-                submit.setEnabled(false);
+                if(name.getText().toString().equals("")){
+                    toast = Toast.makeText(getApplicationContext(), ENTER_NAME, DURATION);
+                    toast.setGravity(Gravity.TOP, 0, 0);
+                    toast.show();
+                } else {
+
+                    ParseObject gameScore = new ParseObject("GameScore");
+                    gameScore.put("playerName", name.getText().toString());
+                    gameScore.put("score", score);
+                    gameScore.put("region", region);
+                    gameScore.saveInBackground();
+                    submit.setEnabled(false);
+                    toast = Toast.makeText(getApplicationContext(), HIGHSCORE_UPLOADED, DURATION);
+                    toast.setGravity(Gravity.TOP, 0, 0);
+                    toast.show();
+                }
             }
         });
 
