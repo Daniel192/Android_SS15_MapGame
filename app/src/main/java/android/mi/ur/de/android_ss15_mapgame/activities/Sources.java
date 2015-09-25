@@ -19,9 +19,9 @@ public class Sources extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.info);
+        setContentView(R.layout.sources);
 
-        sourcesMenu = (Button) findViewById(R.id.infoMenu);
+        sourcesMenu = (Button) findViewById(R.id.sourcesMenu);
         sourcesMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
