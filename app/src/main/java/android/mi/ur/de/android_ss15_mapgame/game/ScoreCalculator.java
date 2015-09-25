@@ -2,16 +2,46 @@ package android.mi.ur.de.android_ss15_mapgame.game;
 
 public class ScoreCalculator {
 
-    private static final int VERY_FAR_AWAY = 150000;
-    private static final int FAR_AWAY = 125000;
-    private static final int AWAY = 100000;
-    private static final int CLOSE = 75000;
-    private static final int VERY_CLOSE = 50000;
-    private static final int ON_TARGET = 25000;
+    private  int VERY_FAR_AWAY = 150000;
+    private  int FAR_AWAY = 125000;
+    private  int AWAY = 100000;
+    private  int CLOSE = 75000;
+    private  int VERY_CLOSE = 50000;
+    private  int ON_TARGET = 25000;
 
     private double result;
 
-    public double calculateScore(double distance){
+    private void setValues(int region){
+        switch (region){
+            case 0:
+                ON_TARGET = 25000;
+                VERY_CLOSE = 50000;
+                CLOSE = 75000;
+                AWAY = 100000;
+                FAR_AWAY = 125000;
+                VERY_FAR_AWAY = 150000;
+                break;
+            case 1:
+                ON_TARGET = 50000;
+                VERY_CLOSE = 100000;
+                CLOSE = 150000;
+                AWAY = 200000;
+                FAR_AWAY = 200000;
+                VERY_FAR_AWAY = 300000;
+                break;
+            case 2:
+                ON_TARGET = 75000;
+                VERY_CLOSE = 150000;
+                CLOSE = 225000;
+                AWAY = 300000;
+                FAR_AWAY = 375000;
+                VERY_FAR_AWAY = 450000;
+                break;
+        }
+    }
+
+    public double calculateScore(double distance, int region){
+        setValues(region);
 
         if(distance <= ON_TARGET){
             result = 100;

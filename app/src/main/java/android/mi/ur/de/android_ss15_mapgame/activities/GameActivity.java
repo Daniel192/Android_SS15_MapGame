@@ -47,6 +47,13 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
     private static final float ZOOM_GERMANY = 4.5f;
     private static final float ZOOM_EUROPE = 2.5f;
     private static final float ZOOM_WORLD = 1.0f;
+    private static final int ON_TARGET_RADIUS_GERMANY = 25000;
+    private static final int VERY_FAR_AWAY_RADIUS_GERMANY = 150000;
+    private static final int ON_TARGET_RADIUS_EUROPE = 50000;
+    private static final int VERY_FAR_AWAY_RADIUS_EUROPE = 300000;
+    private static final int ON_TARGET_RADIUS_WORLD = 75000;
+    private static final int VERY_FAR_AWAY_RADIUS_WORLD = 450000;
+
 
     private GoogleMap quizMap;
     private UiSettings quizMapUiSettings;
@@ -62,6 +69,7 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
     private TextView timeView;
 
     private Button confirmButton;
+    private Button startGame;
     private CountDownTimer timer;
 
     private ProgressBar progressBar;
@@ -74,6 +82,8 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
 
     private Circle veryFarAwayCircle;
     private Circle onTargetCircle;
+    private int veryFarAwayRadius;
+    private int onTargetRadius;
 
     private double distance;
     private int score = 0;
@@ -98,7 +108,7 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onPause() {
         super.onPause();
-        //timer.cancel();
+        timer.cancel();
         finish();
     }
 
@@ -110,14 +120,20 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
             case 0:
                 currentRegion = LAT_LNG_GERMANY;
                 currentZoom = ZOOM_GERMANY;
+                veryFarAwayRadius = VERY_FAR_AWAY_RADIUS_GERMANY;
+                onTargetRadius = ON_TARGET_RADIUS_GERMANY;
                 break;
             case 1:
                 currentRegion = LAT_LNG_EUROPE;
                 currentZoom = ZOOM_EUROPE;
+                veryFarAwayRadius = VERY_FAR_AWAY_RADIUS_EUROPE;
+                onTargetRadius = ON_TARGET_RADIUS_EUROPE;
                 break;
             case 2:
                 currentRegion = LAT_LNG_WORLD;
                 currentZoom = ZOOM_WORLD;
+                veryFarAwayRadius = VERY_FAR_AWAY_RADIUS_WORLD;
+                onTargetRadius = ON_TARGET_RADIUS_WORLD;
                 break;
         }
     }
@@ -145,6 +161,8 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
         timeView = (TextView) findViewById(R.id.timeNumber);
         progressBar = (ProgressBar) findViewById(R.id.time);
         confirmButton = (Button) findViewById(R.id.confirm);
+        startGame = (Button) findViewById(R.id.startGame);
+        startGame.setEnabled(false);
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,6 +172,13 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
                     Log.d("TAG", "ConfirmGuess");
                     confirmGuess();
                 }
+            }
+        });
+
+        startGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startGame();
             }
         });
     }
@@ -186,11 +211,18 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
         timer.start();
     }
 
+    private void startGame(){
+        startGame.setVisibility(View.GONE);
+        updateQuestion();
+        startTimer();
+    }
+
     private void confirmGuess(){
         confirmButton.setEnabled(false);
         distance = SphericalUtil.computeDistanceBetween(guess, target);
-        score += (int) scoreCalculator.calculateScore(distance);
+        score += (int) scoreCalculator.calculateScore(distance, region);
         scoreView.setText(String.valueOf("Score: " + score));
+        quizMap.animateCamera(CameraUpdateFactory.newLatLngZoom(target, currentZoom));
         showTarget();
     }
 
@@ -205,12 +237,12 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
 
         veryFarAwayCircle = quizMap.addCircle(new CircleOptions()
                 .center(targetMarker.getPosition())
-                .radius(150000)
+                .radius(veryFarAwayRadius)
                 .strokeWidth(3)
                 .zIndex(0.0f));
         onTargetCircle = quizMap.addCircle(new CircleOptions()
                 .center(targetMarker.getPosition())
-                .radius(2000)
+                .radius(onTargetRadius)
                 .fillColor(Color.BLACK)
                 .zIndex(5.0f));
 
@@ -223,14 +255,14 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
                 veryFarAwayCircle.remove();
                 currentQuestionId++;
 
-                if(currentQuestionId == questionArray.size()-1){
+                if (currentQuestionId == questionArray.size() - 1) {
                     stopGame();
                 }
                 quizMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentRegion, currentZoom));
                 updateQuestion();
                 confirmButton.setEnabled(true);
             }
-        },3000);
+        }, 3000);
     }
 
     private void stopGame(){
@@ -239,6 +271,7 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
         nextActivity.putExtra("score", String.valueOf(score));
         nextActivity.putExtra("region", region);
         startActivity(nextActivity);
+        quizMap.moveCamera(CameraUpdateFactory.newLatLng(guess));
         finish();
     }
 
@@ -257,30 +290,44 @@ public class GameActivity extends FragmentActivity implements OnMapReadyCallback
         setListenersOnMap();
     }
 
+    private void updateMarker(LatLng latLng){
+        guess = latLng;
+        if (guessMarker == null) {
+            guessMarker = quizMap.addMarker(new MarkerOptions()
+                    .position(guess)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_pin))
+                    .anchor(0.18f, 0.8f)
+                    .draggable(true));
+        } else {
+            guessMarker.setPosition(guess);
+        }
+
+        /*
+        if (guessCircle == null) {
+            guessCircle = quizMap.addCircle(new CircleOptions()
+                    .center(guess)
+                    .radius(7500)
+                    .strokeColor(Color.BLACK)
+                    .fillColor(Color.RED)
+                    .zIndex(6.0f));
+        } else {
+            guessCircle.setCenter(guess);
+        }
+        */
+    }
+
     private void setListenersOnMap(){
         quizMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
-                Log.d("TAG", "onMapLoaded");
-                updateQuestion();
-                startTimer();
+                startGame.setEnabled(true);
             }
         });
 
         quizMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                guess = latLng;
-                if (guessMarker == null) {
-                    guessMarker = quizMap.addMarker(new MarkerOptions()
-                            .position(guess)
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_pin))
-                            .anchor(0.18f, 0.8f)
-                            .draggable(true));
-                    guessMarker.showInfoWindow();
-                } else {
-                    guessMarker.setPosition(guess);
-                }
+                updateMarker(latLng);
             }
         });
 
