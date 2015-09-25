@@ -89,7 +89,7 @@
         </activity>
 
         <activity
-            android:name=".activities.Settings"
+            android:name=".activities.Sources"
             android:screenOrientation="portrait"
             android:label="@string/app_name" >
         </activity>

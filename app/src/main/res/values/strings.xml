@@ -16,6 +16,9 @@
     mit deinem Highscore vergleichen.</string>
 
 
+
+    <string name="Sources"></string>
+
     <string name="App_Name">QuizGame</string>
     <string name="Singleplayer">Spiel starten</string>
     <string name="Multiplayer">Multiplayer</string>
