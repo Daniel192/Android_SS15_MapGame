@@ -17,7 +17,16 @@
 
 
 
-    <string name="Sources"></string>
+    <string name="Sources">
+        Bildmaterial:\n
+        Icons verwendet unter CC BY-SA 4.0 von www.androidicons.com\n\n
+
+        Folgende Bibliotheken und Frameworks wurden verwendet:\n
+        Google Maps Android API\n
+        Google Maps Android API Utility Library\n
+        parse.com (push)\n
+
+    </string>
 
     <string name="App_Name">QuizGame</string>
     <string name="Singleplayer">Spiel starten</string>
@@ -37,7 +46,7 @@
     <string name="Name">Name</string>
     <string name="PlayAgain">Nochmal!</string>
     <string name="Menu">Menü</string>
-
+    <string name="attributionRequirements">attribution requirements</string>
 
 
     <string-array name="country_array">

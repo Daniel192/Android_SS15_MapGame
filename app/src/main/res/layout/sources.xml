@@ -14,7 +14,23 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/margin10"
         android:text="@string/Sources"
-        android:textSize="@dimen/smallTextSize"/>
+        android:textSize="8dp"/>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sourcesText"
+        android:layout_above="@+id/sourcesMenu">
+
+        <TextView
+            android:id="@+id/googleMapsAttributionRequirements"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin10"
+            android:text="@string/attributionRequirements"
+            android:textSize="6dp"/>
+    </ScrollView>
 
     <Button
         android:id="@+id/sourcesMenu"
