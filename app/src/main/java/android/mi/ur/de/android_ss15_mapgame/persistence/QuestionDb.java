@@ -57,26 +57,6 @@ public class QuestionDb {
         db.close();
     }
 
-    // ID starts counting at 1, calling this with 0 will return null
-     public QuestionItem getQuestionItem(int questionID) {
-        QuestionItem item;
-        Cursor cursor = db.query(DATABASE_TABLE, new String[]{KEY_ID, KEY_QUESTION, KEY_LATITUDE,KEY_LONGITUDE, KEY_ANSWER}, null, null, null, null, null);
-        if (cursor.moveToFirst()) {
-            do {
-                if (cursor.getInt(COLUMN_ID_INDEX) == questionID) {
-                    String question = cursor.getString(COLUMN_QUESTION_INDEX);
-                    String answer = cursor.getString(COLUMN_ANSWER_INDEX);
-                    float latitude = cursor.getFloat(COLUMN_LATITUDE_INDEX);
-                    float longitude = cursor.getFloat(COLUMN_LONGITUDE_INDEX);
-                    item = new QuestionItem(question, answer, latitude, longitude);
-                    return item;
-                }
-
-            } while (cursor.moveToNext());
-        }
-        return null;
-    }
-
     //Returns all QuestionItems in the database
     public ArrayList<QuestionItem> getAllQuestionItems() {
         ArrayList<QuestionItem> items = new ArrayList<QuestionItem>();
@@ -182,18 +162,6 @@ public class QuestionDb {
             db.execSQL(addQuestion("Wo befindet sich Tübingen?", 48.5221441f, 9.0477834f, "Tübingen", GERMANY));
             db.execSQL(addQuestion("Wo ist Würzburg?", 49.7780731f, 9.9430286f, "Würzburg", GERMANY));
             db.execSQL(addQuestion("Wo ist Wuppertal?", 51.2418916f, 7.1637667f, "Wuppertal", GERMANY));
-           /* db.execSQL(addQuestion("Wo ist der Checkpoint Charlie?", 52.5075419f, 13.4251364f, "Berlin: Checkpoint Charlie", GERMANY));
-            db.execSQL(addQuestion("Wo ist Goethes Wohnhaus?", 50.9769891f, 11.3184553f, "Weimar: Goethes Wohnhaus", GERMANY));
-            db.execSQL(addQuestion("Wo ist der Hugenottenbrunnen?", 49.5891771f, 10.9844836f, "Erlangen: Hugenottenbrunnen", GERMANY));
-            db.execSQL(addQuestion("Wo ist die Reeperbahn?", 53.5585720f, 9.9278215f, "Hamburg: Reeperbahn", GERMANY));
-            db.execSQL(addQuestion("Wo ist das Schloss Neuschwanstein?", 47.5575740f, 10.7498004f, "Schloss Neuschwanstein", GERMANY));
-            db.execSQL(addQuestion("Wo ist der Europa-Park?", 48.2660194f, 7.7220076f, "Europa-Park", GERMANY));
-            db.execSQL(addQuestion("Wo findet das Oktoberfest statt?", 48.1549107f, 11.5418357f, "München: Oktoberfest", GERMANY));
-            db.execSQL(addQuestion("Wo ist der Olympiapark?", 48.1549107f, 11.5418357f, "München: Olympiapark", GERMANY));
-            db.execSQL(addQuestion("Wo ist die Semperoper?", 51.0768337f, 13.7725857f, "Dresden: Semperoper", GERMANY));
-            db.execSQL(addQuestion("Wo ist der Englische Garten?", 48.1549107f, 11.5418357f, "München: Englischer Garten", GERMANY));
-            db.execSQL(addQuestion("Wo befindet sich die Zugspitze?", 47.4207504f, 10.9854391f, "Zugspitze", GERMANY));
-            db.execSQL(addQuestion("Wo ist das Dürerhaus?", 49.4360936f, 11.1011232f, "Nürnberg: Dürerhaus", GERMANY)); */
 
             db.execSQL(addQuestion("Wo liegt Madrid?", 40.4379543f, -3.6795367f, "Madrid", EUROPE));
             db.execSQL(addQuestion("Wo ist Rom?", 41.9100711f, 12.5359979f, "Rom", EUROPE));
